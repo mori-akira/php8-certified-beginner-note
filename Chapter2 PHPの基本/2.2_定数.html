@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>2.2_定数</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>2.2_定数</h2>
+
+    <h3>定数の宣言・初期化</h3>
+    <pre><code>
+<m-b>const 定数名</m-b> = 値
+    </code></pre>
+
+    <h3>定数名のルール</h3>
+    <ol>
+        <li>先頭に<m-b>$</m-b>を付けない</li>
+        <li>予約語は使えない</li>
+        <li>すべて<m-b>大文字</m-b>で命名する</li>
+        <li>利用できる<m-b>型</m-b>は限定される</li>
+    </ol>
+
+    <h3>定数に使用できる型</h3>
+    <ul>
+        <li><m-b>int</m-b></li>
+        <li><m-b>float</m-b></li>
+        <li><m-b>string</m-b></li>
+        <li><m-b>bool</m-b></li>
+        <li><m-b>null</m-b></li>
+        <li><m-b>以上の値を含む配列</m-b></li>
+    </ul>
+
+    <h3>define関数による定数定義</h3>
+    <pre><code>
+<m-b>define(定数名, 値);</m-b>
+    </code></pre>
+
+    <h3>const/defineの相違点</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>項目</th>
+                <th style="text-align: center;">const</th>
+                <th style="text-align: center;">define</th>
+            </tr>
+        </thead>
+    </table>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>
