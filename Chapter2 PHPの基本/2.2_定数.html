@@ -49,6 +49,90 @@
                 <th style="text-align: center;">define</th>
             </tr>
         </thead>
+        <tbody>
+            <tr>
+                <td>トップレベル以外での宣言</td>
+                <td style="text-align: center;"><m-b>×</m-b></td>
+                <td style="text-align: center;"><m-b>○</m-b></td>
+            </tr>
+            <tr>
+                <td>クラス定数の宣言</td>
+                <td style="text-align: center;"><m-b>○</m-b></td>
+                <td style="text-align: center;"><m-b>×</m-b></td>
+            </tr>
+            <tr>
+                <td>変数、関数の戻り値を設定</td>
+                <td style="text-align: center;"><m-b>×</m-b></td>
+                <td style="text-align: center;"><m-b>○</m-b></td>
+            </tr>
+            <tr>
+                <td>実行速度</td>
+                <td style="text-align: center;"><m-b>○</m-b></td>
+                <td style="text-align: center;"><m-b>△</m-b></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>定数に変数を代入</h3>
+    <pre><code>
+<m-b>const VALUE = $value;</m-b> // エラー
+<m-b>define('VALUE', $value)</m-b> // エラーとならない
+    </code></pre>
+
+    <h3>事前定義された定数</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>定数</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>__FILE__</m-b></td>
+                <td>実行中のファイル名</td>
+            </tr>
+            <tr>
+                <td><m-b>__DIR__</m-b></td>
+                <td>実行中のファイルが存在するディレクトリ名</td>
+            </tr>
+            <tr>
+                <td><m-b>__LINE__</m-b></td>
+                <td>実行中の行番号</td>
+            </tr>
+            <tr>
+                <td><m-b>__FUNCTION__</m-b></td>
+                <td>実行中の関数名</td>
+            </tr>
+            <tr>
+                <td><m-b>__CLASS__</m-b></td>
+                <td>実行中のクラス名</td>
+            </tr>
+            <tr>
+                <td><m-b>__METHOD__</m-b></td>
+                <td>実行中のメソッド名</td>
+            </tr>
+            <tr>
+                <td><m-b>__TRAIT__</m-b></td>
+                <td>実行中のトレイト名</td>
+            </tr>
+            <tr>
+                <td><m-b>__NAMESPACE__</m-b></td>
+                <td>現在の名前空間</td>
+            </tr>
+            <tr>
+                <td><m-b>DIRECTORY_SEPARATOR</m-b></td>
+                <td>フォルダの区切り文字</td>
+            </tr>
+            <tr>
+                <td><m-b>PATH_SEPARATOR</m-b></td>
+                <td>パスの区切り文字</td>
+            </tr>
+            <tr>
+                <td><m-b>PHP_VERSION</m-b></td>
+                <td>使用しているPHPのバージョン</td>
+            </tr>
+        </tbody>
     </table>
 
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
