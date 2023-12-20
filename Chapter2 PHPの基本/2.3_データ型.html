@@ -68,7 +68,7 @@
     <p>
         true/falseは、大文字/小文字を区別<m-b>しない</m-b>
     </p>
-    
+
     <h3>falseと判定される値</h3>
     <ol>
         <li><m-b>空文字</m-b></li>
@@ -77,6 +77,101 @@
         <li><m-b>空配列</m-b></li>
         <li><m-b>null</m-b></li>
     </ol>
+
+    <h3>浮動小数点数の指数表現リテラル</h3>
+    <p>
+        次のように表現する。<br>
+        <m-b>(仮数部)e(符号)(指数部)</m-b><br>
+        これは次を意味する。<br>
+        <m-b>(仮数部)×10<sup>(符号部)(指数部)</sup></m-b>
+    </p>
+    <pre><code>
+&lt;?= 0.01 == 1e-2 ? 'OK' : 'NG' ?><br>
+&lt;?= 80000 == 8e+5 ? 'OK' : 'NG' ?>
+    </code></pre>
+    <h4>出力結果</h4>
+    <pre><code>
+<m-b>OK</m-b><br>
+<m-b>NG</m-b>
+    </code></pre>
+
+    <h3>数値セパレータ</h3>
+    <p>
+        php7.4以降は、数値リテラルの可読性向上のため数値のセパレータとして<m-b>_(アンダースコア)</m-b>を記述できる。
+    </p>
+
+    <h3>文字列リテラル</h3>
+    <ul>
+        <li><m-b>シングルクォート</m-b>または<m-b>ダブルクォート</m-b>で囲む</li>
+        <li>エスケープするときは<m-b>バックスペース</m-b></li>
+    </ul>
+
+    <h3>シングルクォートとダブルクォートによる文字列の違い</h3>
+    <ol>
+        <li>
+            <m-b>ダブルクォート　</m-b>: <m-b>{$変数名}</m-b>のフォーマットで、プレースホルダを使用できる
+        </li>
+        <li>
+            <m-b>シングルクォート</m-b>: 「\\」、「\'」のエスケープシーケンスを使用できる<br>
+            <m-b>ダブルクォート　</m-b>: すべてのエスケープシーケンスを使用できる
+        </li>
+    </ol>
+
+    <h3>使用可能な主なエスケープシーケンス</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>エスケープシーケンス</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>\r</m-b></td>
+                <td>キャリッジリターン</td>
+            </tr>
+            <tr>
+                <td><m-b>\n</m-b></td>
+                <td>ラインフィード</td>
+            </tr>
+            <tr>
+                <td><m-b>\t</m-b></td>
+                <td>水平タブ</td>
+            </tr>
+            <tr>
+                <td><m-b>\v</m-b></td>
+                <td>垂直タブ</td>
+            </tr>
+            <tr>
+                <td><m-b>\f</m-b></td>
+                <td>フォームフィード</td>
+            </tr>
+            <tr>
+                <td><m-b>\$</m-b></td>
+                <td>ダラー記号</td>
+            </tr>
+            <tr>
+                <td><m-b>\\</m-b></td>
+                <td>バックスラッシュ</td>
+            </tr>
+            <tr>
+                <td><m-b>\"</m-b></td>
+                <td>ダブルクォート</td>
+            </tr>
+            <tr>
+                <td><m-b>\nnn</m-b></td>
+                <td>3桁の8進数nnnで表される文字</td>
+            </tr>
+            <tr>
+                <td><m-b>\xnn</m-b></td>
+                <td>2桁の16進数nnで表される文字</td>
+            </tr>
+            <tr>
+                <td><m-b>\u{nnnn}</m-b></td>
+                <td>4桁の16進数nnnnで表されるUnicode文字</td>
+            </tr>
+        </tbody>
+    </table>
 
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
