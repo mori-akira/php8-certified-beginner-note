@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>2.5_型の相互変換</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>2.5_型の相互変換</h2>
+
+    <h3>明示的な型変換(キャスト)</h3>
+    <pre><code>
+&lt;?php
+var_dump((int)123.456);
+var_dump((int)-123.456);
+var_dump((int)true);
+var_dump((string)false);
+var_dump((int)'01234');
+var_dump((int)'0x1234');
+var_dump((int)'123_123');
+var_dump((array)'0xABC');
+    </code></pre>
+    <h4>出力結果</h4>
+    <pre><code>
+<m-b>int(123)</m-b>
+<m-b>int(-123)</m-b>
+<m-b>int(1)</m-b>
+<m-b>string(0) ""</m-b>
+<m-b>int(1234)</m-b>
+<m-b>int(0)</m-b>
+<m-b>int(123)</m-b>
+<m-b>array(1) {
+    [0]=>
+    string(5) "0xABC"
+}</m-b>
+    </code></pre>
+
+    <h3>2/8/16進数の文字列を数値型に変換する関数</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>関数</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>bindec</m-b></td>
+                <td>2進数を10進数に変換</td>
+            </tr>
+            <tr>
+                <td><m-b>octdec</m-b></td>
+                <td>8進数を10進数に変換</td>
+            </tr>
+            <tr>
+                <td><m-b>hexdec</m-b></td>
+                <td>16進数を10進数に変換</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

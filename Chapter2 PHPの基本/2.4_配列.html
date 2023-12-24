@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>2.4_配列</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>2.4_配列</h2>
+
+    <h3>末尾に要素を追加</h3>
+    <pre><code>
+&lt;php
+<m-b>$data[] = 'hoge';</m-b>
+<m-b>$data[] = 'fuga';</m-b>
+    </code></pre>
+
+    <h3>配列内容を表示</h3>
+    <pre><code>
+&lt;pre>
+&lt;php
+$data = ['hoge', 'fuga'];
+<m-b>print_r($data);</m-b>
+?>
+&lt;/pre>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+Array
+(
+    [0] => hoge
+    [1] => fuga
+)
+    </code></pre>
+
+    <h3>連想配列</h3>
+    <pre><code>
+&lt;?php
+$data = [
+    <m-b>'hoge' => 1,</m-b>
+    <m-b>'fuga' => 2,</m-b>
+];
+print $data['hoge'];
+?>
+    </code></pre>
+
+    <h3>一部のみインデックスを指定</h3>
+    <pre><code>
+&lt;pre>
+&lt;?php
+$data = [
+    'hoge' => 'foo',
+    3 => 'bar',
+    'piyo'
+];
+print_r($data);
+?>
+&lt;/pre>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>
+Array
+(
+    [hoge] => foo
+    [3] => bar
+    [4] => piyo
+)
+</m-b>
+    </code></pre>
+
+    <h3>インデックスの重複</h3>
+    <pre><code>
+&lt;pre>
+&lt;?php
+$data = [
+    'hoge' => 'foo',
+    '' => 'bar',
+    '' => 'bar2',
+    '' => 'bar3',
+    'piyo'
+];
+print_r($data);
+?>
+&lt;/pre>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>
+Array
+(
+    [hoge] => foo
+    [] => bar3
+    [0] => piyo
+)
+</m-b>
+    </code></pre>
+
+    <h3>インデックスに使用できる型</h3>
+    <p>
+        インデックスは<m-b>整数</m-b>または<m-b>文字列</m-b>を使用できる。
+        他の型を指定した場合、変換される。
+    </p>
+    <pre><code>
+&lt;pre>
+&lt;?php
+$data = [
+    '' => 'val1',
+    true => 'val2',
+    0.01 => 'val3',
+    false => 'val4',
+    null => 'val5',
+    '001' => 'val6'
+];
+print_r($data);
+?>
+&lt;/pre>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+Deprecated:  Implicit conversion from float 0.01 to int loses precision in C:\xampp\htdocs\selfphp\chap02\array.php on line 74
+        
+<m-b>
+Array
+(
+    [] => val5
+    [1] => val2
+    [0] => val4
+    [001] => val6
+)
+</m-b>
+    </code></pre>
+    <p>
+        なお、インデックスに配列を指定すると、<m-b>Fatal error</m-b>が発生する。
+    </p>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

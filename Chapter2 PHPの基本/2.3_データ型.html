@@ -173,6 +173,26 @@
         </tbody>
     </table>
 
+    <h3>ヒアドキュメント</h3>
+    <h4>ヒアドキュメントの開始文字列</h4>
+    <ul>
+        <li><m-b>&lt;&lt;&lt;EOD</m-b>変数のプレースホルダやエスケープシーケンスを展開する</li>
+        <li><m-b>&lt;&lt;&lt;"EOD"</m-b>変数のプレースホルダやエスケープシーケンスを展開する</li>
+        <li><m-b>&lt;&lt;&lt;'EOD'</m-b>変数のプレースホルダやエスケープシーケンスを展開しない</li>
+    </ul>
+    <h4>ヒアドキュメントの終了文字列</h4>
+    <p>
+        <m-b>EOD;</m-b>
+    </p>
+    <p>
+        ※<m-b>EOD</m-b>は変数名として指定できる任意の文字列に置き換えることができるが、一般的に大文字を使用する。
+    </p>
+
+    <h3>ヒアドキュメントのインデントの除去</h3>
+    <p>
+        終了文字列よりインデントが浅い行があると、<m-b>Parse error</m-b>が発生する。
+    </p>
+
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
 </body>
