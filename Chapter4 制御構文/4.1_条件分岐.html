@@ -12,6 +12,81 @@
 <body>
     <h2>4.1_条件分岐</h2>
 
+    <h3>多岐分岐</h3>
+    <pre><code>
+&lt;?php
+$x = 11;
+if ($x >= 20) {
+    print 'xは20以上';
+} elseif ($x >= 10) {
+    print 'xは10以上';
+} else {
+    print 'xは10未満';
+}
+?>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>xは10以上</m-b>
+    </code></pre>
+
+    <h3>Switch文</h3>
+    <pre><code>
+&lt;?php
+$x = 2;
+switch ($x) {
+    case 1:
+        print 'rank1';
+        break;
+    case 2:
+        print 'rank2';
+    case 3:
+        print 'rank3';
+        break;
+    default:
+        print 'default';
+}
+?>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>rank2rank3</m-b>
+    </code></pre>
+
+    <h3>Switch文の判定方法</h3>
+    <pre><code>
+&lt;?php
+$exp = '3E2';
+switch ($exp) {
+  case 300 :
+    print '値は300';
+    break;
+  case '3E2' :
+    print '値は3E2';
+    break;
+}
+?>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>値は300</m-b>
+    </code></pre>
+
+    <h3>Match式</h3>
+    <pre><code>
+&lt;?php
+$exp = '3E2';
+print match($exp) {
+  300   => '値は300',
+  '3E2' => '値は3E2'
+};
+?>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>値は3E2</m-b>
+    </code></pre>
+
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
 </body>
