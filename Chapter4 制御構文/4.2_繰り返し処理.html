@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>4.2_繰り返し処理</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>4.2_繰り返し処理</h2>
+
+    <h3>while文とdo~while文</h3>
+    <pre><code>
+&lt;?php
+$i = 1;
+while ($i &lt; 5) {
+    print $i++;
+}
+do {
+    print $i++;
+} while ($i &lt; 5);
+?>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>12345</m-b>
+    </code></pre>
+
+    <h3>for文</h3>
+    <pre><code>
+&lt;?php
+for ($i = 1, $j = 1; $result = $i * $j, $i &lt; 4; $i++, $j++) {
+    print "{$i}×{$j}＝{$result}&lt;br>";
+}
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>1×1＝1</m-b>
+<m-b>2×2＝4</m-b>
+<m-b>3×3＝9</m-b>
+    </code></pre>
+
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>
