@@ -14,7 +14,157 @@
 
     <h3>文字列に対する演算</h3>
     <pre><code>
+&lt;pre>
 &lt;php
+var_dump(123 + '0x123');
+var_dump('12' * '2.5');
+var_dump(12 / '2x5');
+var_dump('2E2' ** '2');
+?>
+&lt;/pre>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>int(123)</m-b>
+<m-b>float(30)</m-b>
+
+
+<m-b>Warning:  A non-numeric value encountered in C:\xampp\htdocs\selfphp\chap03\arithmetic.php on line 25</m-b>
+
+<m-b>int(6)</m-b>
+<m-b>float(40000)</m-b>
+    </code></pre>
+
+    <h4>エラーになるケース</h4>
+    <pre><code>
+&lt;pre>
+&lt;php
+var_dump('123' + 'xxx123');
+?>
+&lt;/pre>
+    </code></pre>
+
+    <h3>文字に対するインクリメント・デクリメント(マジカルインクリメント)</h3>
+    <h4>①</h4>
+    <code><pre>
+&lt;php
+$i = 'Y';
+print ++$i;
+print ', ';
+print $i++;
+print ', ';
+print $i--;
+print ', ';
+print --$i;
+?>
+    </pre></code>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>Z, Z, AA, AA</m-b>
+    </code></pre>
+    <h4>②</h4>
+    <pre><code>
+&lt;?php
+$i = 'z8';
+print ++$i;
+print ', ';
+print $i++;
+print ', ';
+print $i--;
+print ', ';
+print --$i;
+?>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>z9, z9, aa0, aa0</m-b>
+    </code></pre>
+
+    <h3>浮動小数点数の演算</h3>
+    <pre><code>
+&lt;?php
+print floor((0.1 + 0.7) * 10);
+print '&lt;br>';
+print floor(bcmul(bcadd(0.1, 0.7, 1), 10, 1));
+?>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>7</m-b>
+<m-b>8</m-b>
+    </code></pre>
+
+    <h3>配列同士の演算</h3>
+    <h4>①</h4>
+    <pre><code>
+&lt;pre>
+&lt;?php
+$ary1 = [1, 2, 3];
+$ary2 = [3, 4, 5];
+print_r($ary1 + $ary2);
+?>
+&lt;/pre>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 3
+)
+</m-b>
+    </code></pre>
+    <h4>②</h4>
+    <pre><code>
+&lt;pre>
+&lt;?php
+$assoc1 = [
+  'Apple' => 'Red',
+  'Orange' => 'Yellow',
+  'Melon' => 'Green'
+];
+$assoc2 = [
+  'Grape' => 'Purple',
+  'Apple' => 'Green',
+  'Strawberry' => 'Red'
+];
+print_r($assoc1 + $assoc2);
+?>
+&lt;/pre>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>
+Array
+(
+    [Apple] => Red
+    [Orange] => Yellow
+    [Melon] => Green
+    [Grape] => Purple
+    [Strawberry] => Red
+)
+</m-b>
+    </code></pre>
+    <h4>③</h4>
+    <pre><code>
+&lt;pre>
+&lt;?php
+$ary1 = [1, 2, 3];
+$ary2 = [3, 4, 5];
+print_r($ary1 - $ary2);
+?>
+&lt;/pre>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>
+Fatal error:  Uncaught TypeError: Unsupported operand types: array - array in C:\xampp\htdocs\selfphp\chap03\plus_array.php:27
+Stack trace:
+#0 {main}
+    thrown in C:\xampp\htdocs\selfphp\chap03\plus_array.php on line 27
+</m-b>
     </code></pre>
 
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>

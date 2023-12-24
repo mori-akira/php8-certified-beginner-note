@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>3.4_論理演算子</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>3.4_論理演算子</h2>
+
+    <h3>論理演算子</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>演算子</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>&&</m-b></td>
+                <td>論理積</td>
+            </tr>
+            <tr>
+                <td><m-b>and</m-b></td>
+                <td>論理積</td>
+            </tr>
+            <tr>
+                <td><m-b>||</m-b></td>
+                <td>論理和</td>
+            </tr>
+            <tr>
+                <td><m-b>or</m-b></td>
+                <td>論理和</td>
+            </tr>
+            <tr>
+                <td><m-b>xor</m-b></td>
+                <td>排他的論理和</td>
+            </tr>
+            <tr>
+                <td><m-b>!</m-b></td>
+                <td>否定</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>ショートカット演算(短絡演算)</h3>
+    <pre><code>
+&lt?php
+$x = 1;
+$x === 1 or print 'yes';
+$x === 2 or print 'no';
+?>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>no   </m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

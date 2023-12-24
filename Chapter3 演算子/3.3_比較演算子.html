@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>3.3_比較演算子</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>3.3_比較演算子</h2>
+
+    <h3>比較演算子</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>演算子</th>
+                <th>用例</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>==</m-b></td>
+                <td>1 <m-b>==</m-b> '1' ⇒ <m-b>true</m-b></td>
+                <td>左辺と右辺の値が等しい場合にtrue</td>
+            </tr>
+            <tr>
+                <td><m-b>===</m-b></td>
+                <td>1 <m-b>===</m-b> '1' ⇒ <m-b>false</td>
+                <td>左辺と右辺の型と値が等しい場合にtrue</td>
+            </tr>
+            <tr>
+                <td><m-b>!=</m-b></td>
+                <td>1 <m-b>!=</m-b> '1' ⇒ <m-b>false</m-b></td>
+                <td>左辺と右辺の値が等しくない場合にtrue</td>
+            </tr>
+            <tr>
+                <td><m-b>&lt;></m-b></td>
+                <td>1 <m-b>&lt;></m-b> '2' ⇒ <m-b>true</m-b></td>
+                <td>左辺と右辺の値が等しくない場合にtrue</td>
+            </tr>
+            <tr>
+                <td><m-b>!==</m-b></td>
+                <td>1 <m-b>!==</m-b> '1' ⇒ <m-b>true</m-b></td>
+                <td>左辺と右辺の型または値が等しくない場合にtrue</td>
+            </tr>
+            <tr>
+                <td><m-b>&lt;、&lt;=</m-b></td>
+                <td>1 <m-b>&lt;</m-b> 1 ⇒ <m-b>false</m-b></td>
+                <td>左辺が右辺より小さい/以下の場合にtrue</td>
+            </tr>
+            <tr>
+                <td><m-b>>、>=</m-b></td>
+                <td>2 <m-b>>=</m-b> 2 ⇒ <m-b>true</m-b></td>
+                <td>左辺が右辺より大きい/以上の場合にtrue</td>
+            </tr>
+            <tr>
+                <td><m-b>&lt;=></m-b></td>
+                <td>1 <m-b>&lt;=></m-b> 2 ⇒ <m-b>1</m-b></td>
+                <td>
+                    宇宙船演算子<br>
+                    左辺が右辺より小さい場合は<m-b>-1</m-b>、等しい場合は<m-b>0</m-b>、大きい場合は<m-b>1</m-b>を返す。
+                </td>
+            </tr>
+            <tr>
+                <td><m-b>?:</m-b></td>
+                <td>(10 > 1) <m-b>?</m-b> 'hoge' : 'fuga' ⇒ <m-b>'hoge'</m-b></td>
+                <td>条件演算子</td>
+            </tr>
+            <tr>
+                <td><m-b>??</m-b></td>
+                <td>null <m-b>??</m-b> 10 ⇒ <m-b>10</m-b></td>
+                <td>null合体演算子</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>配列の比較</h3>
+    <p>
+        配列同士の比較は次の順で処理が行われる。
+    </p>
+    <ol>
+        <li><m-b>要素数</m-b>で比較</li>
+        <li><m-b>同じキーの値</m-b>で比較し、初めに値が異なる要素を見つけたら終了</li>
+    </ol>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

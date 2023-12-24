@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>3.6_その他の演算子</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>3.6_その他の演算子</h2>
+
+    <h3>文字列演算子</h3>
+    <h4>①</h4>
+    <pre><code>
+&lt;?php
+$x = 'Hello, ';
+$y = 'PHP!';
+print $x . $y;
+print '&lt;br>';
+print $x.$y;
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>Hello, PHP!</m-b>
+<m-b>Hello, PHP!</m-b>
+    </code></pre>
+
+    <h4>②</h4>
+    <pre><code>
+&lt;?php
+$xs = '0xFF';
+$xi = 0xFF;
+$ys = '1.5E2';
+$yi = 1.5E2;
+print $xs.$ys;
+print '&lt;br>';
+print $xi.$yi;
+?>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>0xFF1.5E2</m-b>
+<m-b>255150</m-b>
+    </code></pre>
+
+    <h3>実行演算子</h3>
+    <pre><code>
+&lt;?php
+$result = `cd`;
+print $result;
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>C:\xampp\htdocs\selfphp\chap03</m-b>
+    </code></pre>
+
+    <h3>エラー制御演算子</h3>
+    <pre><code>
+&lt;?php
+$data = [ 'apple' => 'りんご' ];
+print <m-b>@</m-b>$data['orange'];
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>
