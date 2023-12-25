@@ -43,6 +43,84 @@ for ($i = 1, $j = 1; $result = $i * $j, $i &lt; 4; $i++, $j++) {
 <m-b>3×3＝9</m-b>
     </code></pre>
 
+    <h3>foreach文</h3>
+    <h4>①</h4>
+    <pre><code>
+&lt;?php
+$data = ['高江', '掛谷', '日尾',];
+foreach ($data as $value) {
+    print "名前は{$value}&lt;br />";
+}
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>名前は高江</m-b>
+<m-b>名前は掛谷</m-b>
+<m-b>名前は日尾</m-b>
+    </code></pre>
+
+    <h4>②</h4>
+    <pre><code>
+&lt;?php
+$data = ['高江' => '男', '掛谷' => '女', '日尾' => '男',];
+foreach ($data as $key => $value) {
+    print "{$key}：{$value}&lt;br />";
+}
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>日尾：男</m-b>
+<m-b>掛谷：女</m-b>
+<m-b>日尾：男</m-b>
+    </code></pre>
+
+    <h3>値変数の参照渡し</h3>
+    <pre><code>
+&lt;?php
+$data = ['高江', '掛谷', '日尾',];
+foreach ($data as &$value) {
+  $value = 'New' . $value;
+}
+print_r($data);
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>Array ( [0] => New高江 [1] => New掛谷 [2] => New日尾 )</m-b>
+    </code></pre>
+
+    <h3>foreach文での分割代入</h3>
+    <pre><code>
+&lt;?php
+$data = [['群馬県', '前橋市'], ['栃木県', '宇都宮市'], ['茨城県', '水戸市']];
+foreach ($data as [$pref, $city]) {
+    print "{$pref}={$city}&lt;br>";
+}
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>群馬県=前橋市</m-b>
+<m-b>栃木県=宇都宮市</m-b>
+<m-b>茨城県=水戸市</m-b>
+    </code></pre>
+
+    <h3>配列への代入へ応用</h3>
+    <pre><code>
+&lt;?php
+$datas = [
+    ['pref' => '群馬県', 'city' => '前橋市'],
+    ['pref' => '栃木県', 'city' => '宇都宮市'],
+    ['pref' => '茨城県', 'city' => '水戸市']
+];
+$result = [];
+foreach ($datas as $data) {
+    ['city' => $result[]] = $data;
+}
+print_r($result);
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>Array ( [0] => 前橋市 [1] => 宇都宮市 [2] => 水戸市 )</m-b>
+    </code></pre>
 
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>

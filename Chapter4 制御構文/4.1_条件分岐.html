@@ -73,6 +73,7 @@ switch ($exp) {
     </code></pre>
 
     <h3>Match式</h3>
+    <h4>①</h4>
     <pre><code>
 &lt;?php
 $exp = '3E2';
@@ -85,6 +86,21 @@ print match($exp) {
     <h4>実行結果</h4>
     <pre><code>
 <m-b>値は3E2</m-b>
+    </code></pre>
+
+    <h4>②</h4>
+    <pre><code>
+&lt;?php
+$lang = 'php';
+$result = match ($lang) {
+    'Java', 'C言語' => 'コンパイラ言語',
+    'python', 'php' => 'インタープリタ言語',
+};
+print $result;
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>インタープリタ言語</m-b>
     </code></pre>
 
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>

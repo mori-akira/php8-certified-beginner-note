@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>4.4_制御命令のその他の話題</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>4.4_制御命令のその他の話題</h2>
+
+    <h3>スクリプトブロックと固定テンプレート</h3>
+    <p>
+        スクリプティングデリミタ(&lt;?php ~ ?>)で囲まれた<m-b>スクリプトブロック</m-b>に対し、
+        それ以外の固定的なHTMLソースのことを<m-b>固定テンプレート</m-b>または<m-b>HTMLテンプレート</m-b>と呼ぶ。
+    </p>
+    <pre><code>
+&lt;?php for ($i = 0; $i &lt; 3; $i++) { ?>
+&lt;span>hoge!&lt;/span>&lt;br>
+&lt;?php } ?>
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+hoge!
+hoge!
+hoge!
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

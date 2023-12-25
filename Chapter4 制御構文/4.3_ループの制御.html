@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>4.3_ループの制御</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>4.3_ループの制御</h2>
+
+    <h3>外側のループをbreak/continue</h3>
+    <pre><code>
+&lt;?php
+for ($i = 0; $i &lt; 6; $i++) {
+    for ($j = 0; $j &lt; 6; $j++) {
+        $tmp = $i * 3 + $j; 
+        print("{$tmp}&amp;nbsp;");
+        if ($tmp > 7) {
+            break 2;
+        }
+    }
+}
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>0 1 2 3 4 5 3 4 5 6 7 8 </m-b>
+    </code></pre>
+    <p>なお、存在する以上の階層を指定した場合、<m-b>Fatal error</m-b>が発生する。</p>
+
+    <h3>switch文中のcontinue</h3>
+    <pre><code>
+&lt;?php
+for ($i = 0; $i &lt; 3; $i++) {
+    for ($j = 0; $j &lt; 3; $j++) {
+        $tmp = $i * 3 + $j;
+        switch ($tmp % 3) {
+            case 1:
+            case 2:
+                $tmp = $tmp . '--';
+                break;
+            case 3:
+                continue;
+        }
+        print "{$tmp} ";
+    }
+}
+    </code></pre>
+    <h4>実行結果</h4>
+    <pre><code>
+<m-b>0 1-- 2-- 3 4-- 5-- 6 7-- 8-- </m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>
