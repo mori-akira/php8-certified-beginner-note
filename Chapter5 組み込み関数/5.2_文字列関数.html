@@ -164,6 +164,54 @@ var_dump(str_ends_with($tar, 'yo'));
 <m-b>bool(true) </m-b>
     </code></pre>
 
+    <h3>前後の空白を除去する</h3>
+    <pre><code>
+&lt;?>
+$tar = " \tほげ\r\n";
+$tar = " \t\vほげ\r\n";
+print trim($tar) . '&lt;br>';
+$tar = "[{(hoge)}]";
+print trim($tar, "[]{}") . '&lt;br>';
+print ltrim($tar, "[]{}") . '&lt;br>';
+print rtrim($tar, "[]{}") . '&lt;br>';
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>ほげ    </m-b>
+<m-b>(hoge)  </m-b>
+<m-b>(hoge)}]</m-b>
+<m-b>[{(hoge)</m-b>
+    </code></pre>
+
+    <h3>フォーマット文字列</h3>
+    <h4>文字列</h4>
+    <pre><code>
+&lt;pre>
+    &lt;?php
+    printf('[%s: %s]&lt;br>', 'hoge', 'fuga');
+    printf('[%2$6s: %1$8s]&lt;br>', 'hoge', 'fuga');
+    printf('[%-6s: %-8s]&lt;br>', 'hoge', 'fuga');
+    printf('[%.6s: %6s]&lt;br>', 'ありがとう', 'ありがとう');
+    ?>
+&lt;/pre>
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>[hoge: fuga]      </m-b>
+<m-b>[  fuga:     hoge]</m-b>
+<m-b>[hoge  : fuga    ]</m-b>
+<m-b>[あり: ありがとう]</m-b>
+    </code></pre>
+
+    <h4>数値</h4>
+    <pre><code>
+&lt;pre>
+    &lt;?php
+
+    ?>
+&lt;/pre>
+    </code></pre>
+
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
 </body>
