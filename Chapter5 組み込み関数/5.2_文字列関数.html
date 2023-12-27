@@ -14,7 +14,154 @@
 
     <h3>文字列の長さを取得する</h3>
     <pre><code>
+&lt;?php
+$str = 'ABCあいう';
+var_dump(strlen($str));
+var_dump(mb_strlen($str));
+var_dump(mb_strwidth($str));
+var_dump(mb_strlen($str, 'Shift-JIS'));
+var_dump(mb_strlen('い', 'Shift-JIS'));
+var_dump(mb_strlen('いろ', 'Shift-JIS'));
+?>
+    </code></pre>
+    <h4>出力</h4>
+    <pre><code>
+<m-b>int(12) int(6) int(9) int(8) int(2) int(3)</m-b>
+    </code></pre>
 
+    <h3>大文字/小文字を変換する</h3>
+    <pre><code>
+&lt;?php
+$tar = 'HOGE fuga PiYo';
+print(mb_convert_case($tar, MB_CASE_UPPER) . '&lt;br>');
+print(mb_convert_case($tar, MB_CASE_LOWER) . '&lt;br>');
+print(mb_convert_case($tar, MB_CASE_TITLE) . '&lt;br>');
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>HOGE FUGA PIYO</m-b>
+<m-b>hoge fuga piyo</m-b>
+<m-b>Hoge Fuga Piyo</m-b>
+    </code></pre>
+
+    <h3>部分文字列を取得する①</h3>
+    <pre><code>
+&lt;?php
+$tar = 'HogeFugaPiyo';
+print mb_substr($tar, 6) . '&lt;br>';
+print mb_substr($tar, 2, 3) . '&lt;br>';
+print mb_substr($tar, 2, -1) . '&lt;br>';
+print mb_substr($tar,-5, 2) . '&lt;br>';
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>gaPiyo</m-b>
+<m-b>geF</m-b>
+<m-b>geFugaPiy</m-b>
+<m-b>aP</m-b>
+    </code></pre>
+
+    <h3>部分文字列を取得する②</h3>
+    <pre><code>
+&lt;?php
+$tar = 'HogeFugaPiyo';
+print mb_strstr($tar, 'g', true) . '&lt;br>';
+print mb_strstr($tar, 'g', false) . '&lt;br>';
+print mb_strstr($tar, 'g') . '&lt;br>';
+print mb_strstr($tar, 'z') . '&lt;br>';
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>Ho        </m-b>
+<m-b>geFugaPiyo</m-b>
+<m-b>geFugaPiyo</m-b>
+<m-b>          </m-b>
+    </code></pre>
+
+    <h3>部分文字列を置換する</h3>
+    <pre><code>
+&lt;?php
+$tar1 = 'にわにはにわにわとりがいる';
+$tar2 = '庭には二羽鶏がいる';
+print str_replace('にわ', 'ニワ', $tar1, $cnt) . '&lt;br>';
+print $cnt . '&lt;br>';
+print str_replace(['庭', '二羽'], ['にわ', 'にわ'], $tar2, $cnt) . '&lt;br>';
+print $cnt . '&lt;br>';
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>ニワにはニワニワとりがいる</m-b>
+<m-b>3</m-b>
+<m-b>にわにはにわ鶏がいる</m-b>
+<m-b>2</m-b>
+    </code></pre>
+
+    <h3>文字列を分割する</h3>
+    <pre><code>
+&lt;?php
+$tar = 'hogefugahogefuga';
+print_r(explode('g', $tar));
+print '&lt;br>';
+print_r(explode('g', $tar, 2));
+print '&lt;br>';
+print_r(explode('', $tar, 5));
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>Array ( [0] => ho [1] => efu [2] => aho [3] => efu [4] => a )</m-b>
+<m-b>Array ( [0] => ho [1] => efugahogefuga )</m-b>
+<m-b>Fatal error: Uncaught ValueError: explode(): Argument #1 ...</m-b>
+    </code></pre>
+
+    <h3>文字位置を探索する</h3>
+    <pre><code>
+&lt;?php
+$tar = 'hogefugapiyo';
+print mb_strpos($tar, 'o') . '&lt;br>';
+print mb_strrpos($tar, 'o') . '&lt;br>';
+print mb_strpos($tar, 'o', 2) . '&lt;br>';
+print mb_strpos($tar, 'o', -11) . '&lt;br>';
+print mb_strpos($tar, 'z') . '&lt;br>';
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>1 </m-b>
+<m-b>11</m-b>
+<m-b>11</m-b>
+<m-b>1 </m-b>
+<m-b>  </m-b>
+    </code></pre>
+
+    <h3>文字列の登場回数を取得する</h3>
+    <pre><code>
+&lt;?php
+$tar = 'にわにわにわにわとりがいる';
+print mb_substr_count($tar, 'にわ') . '&lt;br>';
+print mb_substr_count($tar, 'にわに') . '&lt;br>';
+print mb_substr_count($tar, 'にわわ') . '&lt;br>';
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>4</m-b>
+<m-b>2</m-b>
+<m-b>0</m-b>
+    </code></pre>
+
+    <h3>文字列が含まれるか判定する</h3>
+    <pre><code>
+&lt;?php
+$tar = 'HogeFugaPiyo';
+var_dump(str_starts_with($tar, 'ho'));
+print '&lt;br>';
+var_dump(str_contains($tar, 'ga'));
+print '&lt;br>';
+var_dump(str_ends_with($tar, 'yo'));
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>bool(false)</m-b>
+<m-b>bool(true) </m-b>
+<m-b>bool(true) </m-b>
     </code></pre>
 
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
