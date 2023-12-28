@@ -207,10 +207,97 @@ print rtrim($tar, "[]{}") . '&lt;br>';
     <pre><code>
 &lt;pre>
     &lt;?php
-
+    printf('[%+06d]&lt;br>', 123.456);
+    printf('[%+06x]&lt;br>', 123.456);
+    printf('[%+06X]&lt;br>', 123.456);
+    printf('[%+04.4f]&lt;br>', 123.456);
+    printf('[%-04.4F]&lt;bzr>', 123.456);
     ?>
 &lt;/pre>
     </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>[+00123]</m-b>
+<m-b>[00007b]</m-b>
+<m-b>[00007B]</m-b>
+<m-b>[+123.4560]</m-b>
+<m-b>[123.4560]</m-b>
+    </code></pre>
+
+    <h3>文字列を変換する</h3>
+    <pre><code>
+&lt;?php
+$tar = 'Phpまなぶコード';
+print mb_convert_kana($tar, 'rk') . '&lt;br>';
+print mb_convert_kana($tar, 'RH') . '&lt;br>';
+?>
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>Phpまなぶｺｰﾄﾞ    </m-b>
+<m-b>Ｐｈｐまなぶコード</m-b>
+    </code></pre>
+
+    <h3>文字列をエンコーディングする</h3>
+    <pre><code>
+&lt;?php
+print mb_convert_encoding('こんにちは！', 'utf-8', 'shift-jis') . '&lt;br>';
+print mb_convert_encoding('こんにちは！', 'shift-jis', 'jis, EUC-JP') . '&lt;br>';
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>縺薙ｓ縺ｫ縺｡縺ｯ??</m-b>
+<m-b>???????��???</m-b>
+    </code></pre>
+
+    <h3>メールを送信する</h3>
+    <pre><code>
+&lt;?php
+$to = 'wings@example.com';
+$subject = '独習PHP 改訂版';
+$body = "こんにちは、mb_send_mail関数！\nどうですか？";
+$headers  = "From : user01@example.com\n";
+$headers .= "Cc : yamada@example.com\n";
+$headers .= "X-Mailer : PHP 8\n";
+if (<m-b>mb_send_mail($to, $subject, $body, $headers)</m-b>) {
+  print 'メール送信に成功しました。';
+} else {
+  print 'メール送信に失敗しました。';
+}
+    </code></pre>
+
+    <h4>メールヘッダーは配列も可能</h4>
+    <pre><code>
+&lt;?php
+$to = 'wings@example.com';
+$subject = '独習PHP 改訂版';
+$body = "こんにちは、mb_send_mail関数！\nどうですか？";
+$headers = [
+    'From' => 'user01@example.com',
+    'Cc' => 'yamada@example.com',
+    'X-Mailer' => 'PHP 8',
+];
+if (<m-b>mb_send_mail($to, $subject, $body, $headers)</m-b>) {
+    print 'メール送信に成功しました。';
+} else {
+    print 'メール送信に失敗しました。';
+}
+    </code></pre>
+
+    <h4>php.iniの設定</h4>
+    <ul>
+        <li><m-b>mstring.language</m-b>のコメントアウトを外す</li>
+        <li><m-b>sendmail_path</m-b>のコメントアウトを外す</li>
+    </ul>
+
+    <h4>sendmail.iniの設定</h4>
+    <ul>
+        <li><m-b>smtp_server</m-b>にSMTPのホストを指定する</li>
+        <li><m-b>smtp_port</m-b>にSMTPのポートを指定する</li>
+        <li><m-b>auth_username</m-b>に認証ユーザ名を指定する</li>
+        <li><m-b>auth_password</m-b>に認証パスワードを指定する</li>
+        <li><m-b>force_sender</m-b>に送信元アドレスを指定する</li>
+    </ul>
 
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
