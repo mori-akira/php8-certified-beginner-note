@@ -15,7 +15,135 @@
     <h3>配列の要素数を取得する</h3>
     <pre><code>
 &lt;?php
+print count([1, 2, 3]) . '&lt;br>';
+print count([[1], [2, 3, 4]]) . '&lt;br>';
+print count([[1], [2, 3, 4]], COUNT_RECURSIVE) . '&lt;br>';
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>3</m-b>
+<m-b>2</m-b>
+<m-b>6</m-b>
+    </code></pre>
 
+    <h3>要素の出現回数を取得する</h3>
+    <pre><code>
+&lt;?php
+print_r(array_count_values([3, 1, 4, 1, 5, 9, 2, 6, 5, 3]));
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>Array ( [3] => 2 [1] => 2 [4] => 1 [5] => 2 [9] => 1 [2] => 1 [6] => 1 )</m-b>
+    </code></pre>
+
+    <h3>配列を連結する</h3>
+    <pre><code>
+&lt;?php
+print_r(array_merge([1, 2], [3, 4]));
+print '&lt;br>';
+print_r(array_merge(['one' => 1, 'two' => 2], ['three' => 3, 'one' => 4]));
+print '&lt;br>';
+print_r(array_merge_recursive(['one' => 1, 'two' => 2], ['three' => 3, 'one' => 4]));
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>Array ( [0] => 1 [1] => 2 [2] => 3 [3] => 4 )</m-b>
+<m-b>Array ( [one] => 4 [two] => 2 [three] => 3 )</m-b>
+<m-b>Array ( [one] => Array ( [0] => 1 [1] => 4 ) [two] => 2 [three] => 3 )</m-b>
+    </code></pre>
+
+    <h3>配列の各要素を結合する</h3>
+    <pre><code>
+&lt;?php
+print implode('.', [1, 2, 3]) . '<br>';
+print implode('', ['hoge', 'fuga']) . '<br>';
+    </code></pre>
+    
+    <h4>結果</h4>
+    <pre><code>
+<m-b>1.2.3</m-b>
+<m-b>hogefuga</m-b>
+    </code></pre>
+
+    <h3>配列の先頭/末尾に要素を追加/削除する</h3>
+    <h4>スタック</h4>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$data = [1, 2];
+print array_push($data, 3, 4) . $br;
+print_r($data);
+print $br;
+print array_pop($data) . $br;
+print_r($data);
+print $br;
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>4</m-b>
+<m-b>Array ( [0] => 1 [1] => 2 [2] => 3 [3] => 4 )</m-b>
+<m-b>4</m-b>
+<m-b>Array ( [0] => 1 [1] => 2 [2] => 3 )</m-b>
+    </code></pre>
+
+    <h4>キュー</h4>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$data = [1, 2];
+print array_shift($data) . $br;
+print_r($data);
+print $br;
+print array_unshift($data, 3, 4) . $br;
+print_r($data);
+print $br;
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>1</m-b>
+<m-b>Array ( [0] => 2 )</m-b>
+<m-b>3</m-b>
+<m-b>Array ( [0] => 3 [1] => 4 [2] => 2 )</m-b>
+    </code></pre>
+
+    <h3>配列に要素を追加/置換/削除する</h3>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$data = [1, 2];
+print_r(array_splice($data, 0, 1, [3, 4]));
+print $br;
+print_r($data);
+print $br;
+print_r(array_splice($data, 1, 2, 5));
+print $br;
+print_r($data);
+print $br;
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>Array ( [0] => 1 )</m-b>
+<m-b>Array ( [0] => 3 [1] => 4 [2] => 2 )</m-b>
+<m-b>Array ( [0] => 4 [1] => 2 )</m-b>
+<m-b>Array ( [0] => 3 [1] => 5 )</m-b>
+    </code></pre>
+
+    <h3>配列から特定範囲の要素を取得する</h3>
+    <pre><code>
+&lt;?php
+$br = '<br>';
+print_r(array_slice([1, 2, 3, 4], 2));
+print $br;
+print_r(array_slice([1, 2, 3, 4], 1, 3));
+print $br;
+print_r(array_slice([1, 2, 3, 4], 1, 3, true));
+print $br;
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>Array ( [0] => 3 [1] => 4 )</m-b>
+<m-b>Array ( [0] => 2 [1] => 3 [2] => 4 )</m-b>
+<m-b>Array ( [1] => 2 [2] => 3 [3] => 4 )</m-b>
     </code></pre>
 
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
