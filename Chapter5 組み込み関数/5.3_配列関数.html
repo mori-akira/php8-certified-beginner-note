@@ -119,13 +119,20 @@ print_r(array_splice($data, 1, 2, 5));
 print $br;
 print_r($data);
 print $br;
+print $br;
+print_r(array_splice($data, 1, 0, [6, 7]));
+print $br;
+print_r($data);
+print $br;
     </code></pre>
     <h4>結果</h4>
     <pre><code>
-<m-b>Array ( [0] => 1 )</m-b>
-<m-b>Array ( [0] => 3 [1] => 4 [2] => 2 )</m-b>
-<m-b>Array ( [0] => 4 [1] => 2 )</m-b>
-<m-b>Array ( [0] => 3 [1] => 5 )</m-b>
+<m-b>Array ( [0] => 1 )                           </m-b>
+<m-b>Array ( [0] => 3 [1] => 4 [2] => 2 )         </m-b>
+<m-b>Array ( [0] => 4 [1] => 2 )                  </m-b>
+<m-b>Array ( [0] => 3 [1] => 5 )                  </m-b>
+<m-b>Array ( )                                    </m-b>
+<m-b>Array ( [0] => 3 [1] => 6 [2] => 7 [3] => 5 )</m-b>
     </code></pre>
 
     <h3>配列から特定範囲の要素を取得する</h3>
@@ -144,6 +151,282 @@ print $br;
 <m-b>Array ( [0] => 3 [1] => 4 )</m-b>
 <m-b>Array ( [0] => 2 [1] => 3 [2] => 4 )</m-b>
 <m-b>Array ( [1] => 2 [2] => 3 [3] => 4 )</m-b>
+    </code></pre>
+
+    <h3>配列の内容を検索する</h3>
+    <pre><coce>
+&lt;?php
+$br = '&lt;br>';
+var_dump(array_search('2', [0, 1, 2]));
+print $br;
+var_dump(array_search('2', [0, 1, 2], true));
+print $br;
+var_dump(array_search('2', [0, 1, 2], false));
+    </coce></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>int(2)     </m-b>
+<m-b>bool(false)</m-b>
+<m-b>int(2)     </m-b>
+    </code></pre>
+
+    <h3>配列に値が含まれるか確認</h3>
+    <pre><code>
+&lt;?php
+$data = ['PHP', 'Java', 'Python', 'C#'];
+if (!array_search('PHP', $data)) {
+    print 'Not Found';
+}
+if (!in_array('PHP', $data)) {
+    print 'Not Found';
+}
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>Not Found</m-b>
+<m-b>         </m-b>
+    </code></pre>
+
+    <h3>配列をソート</h3>
+    <h4>主なソート関数</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>関数名</th>
+                <th>順序</th>
+                <th>ソートキー</th>
+                <th>対象</th>
+                <th>キーの維持</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>sort</td>
+                <td><m-b>昇順</m-b></td>
+                <td><m-b>値</m-b></td>
+                <td><m-b>通常配列</m-b></td>
+                <td><m-b>×</m-b></td>
+            </tr>
+            <tr>
+                <td>rsort</td>
+                <td><m-b>降順</m-b></td>
+                <td><m-b>値</m-b></td>
+                <td><m-b>通常配列</m-b></td>
+                <td><m-b>×</m-b></td>
+            </tr>
+            <tr>
+                <td>asort</td>
+                <td><m-b>昇順</m-b></td>
+                <td><m-b>値</m-b></td>
+                <td><m-b>連想配列</m-b></td>
+                <td><m-b>○</m-b></td>
+            </tr>
+            <tr>
+                <td>arsort</td>
+                <td><m-b>降順</m-b></td>
+                <td><m-b>値</m-b></td>
+                <td><m-b>連想配列</m-b></td>
+                <td><m-b>○</m-b></td>
+            </tr>
+            <tr>
+                <td>ksort</td>
+                <td><m-b>昇順</m-b></td>
+                <td><m-b>キー</m-b></td>
+                <td><m-b>連想配列</m-b></td>
+                <td><m-b>○</m-b></td>
+            </tr>
+            <tr>
+                <td>krsort</td>
+                <td><m-b>降順</m-b></td>
+                <td><m-b>キー</m-b></td>
+                <td><m-b>連想配列</m-b></td>
+                <td><m-b>○</m-b></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>引数flagsに指定できる主な設定値</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>設定値</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>SORT_REGULAR</m-b></td>
+                <td>型を変更せずに値をソート</td>
+            </tr>
+            <tr>
+                <td><m-b>SORT_NUMERIC</m-b></td>
+                <td>数値としてソート</td>
+            </tr>
+            <tr>
+                <td><m-b>SORT_STRING</m-b></td>
+                <td>文字列としてソート</td>
+            </tr>
+            <tr>
+                <td><m-b>SORT_LOCALE_STRING</m-b></td>
+                <td>文字列としてソート(現在のロケールに準拠)</td>
+            </tr>
+            <tr>
+                <td><m-b>SORT_NATURAL</m-b></td>
+                <td>文字列としてソート(自然順ソート)</td>
+            </tr>
+            <tr>
+                <td><m-b>SORT_FLAG_CASE</m-b></td>
+                <td>文字列ソートで大文字/小文字を区別しない</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>自然順ソートについて</h4>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$tar = ['Img7.png', 'img12.jpg', 'IMG9.gif', 'IMG21.bmp'];
+print(sort($tar)) . $br;
+print_r($tar);
+print $br;
+print(sort($tar, SORT_NATURAL)) . $br;
+print_r($tar);
+print $br;
+print(sort($tar, SORT_NATURAL | SORT_FLAG_CASE)) . $br;
+print_r($tar);
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>bool(true) Array ( [0] => IMG21.bmp [1] => IMG9.gif [2] => Img7.png [3] => img12.jpg )</m-b>
+<m-b>bool(true) Array ( [0] => IMG9.gif [1] => IMG21.bmp [2] => Img7.png [3] => img12.jpg )</m-b>
+<m-b>bool(true) Array ( [0] => Img7.png [1] => IMG9.gif [2] => img12.jpg [3] => IMG21.bmp )</m-b>
+    </code></pre>
+
+    <h3>カスタムルールでソートする</h3>
+    <pre><code>
+&lt;?php
+$data = ['apple', 'orange', 'grape', 'banana', 'pine'];
+usort($data, function($v1, $v2) {
+    return mb_strlen($v1) <=> mb_strlen($v2);
+});
+print_r($data);
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>Array ( [0] => pine [1] => apple [2] => grape [3] => orange [4] => banana )</m-b>
+    </code></pre>
+
+    <h3>配列の要素を順に処理する</h3>
+    <pre><code>
+&lt;?php
+$data = [3, 1, 4, 1, 5, 9, 2, 6];
+array_walk($data, function($value, $key, $suffix) {
+    print $value;
+    if ($key === 0) {
+        print '.';
+    } else {
+        print $suffix;
+    }
+}, ':');
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>3.1:4:1:5:9:2:6:</m-b>
+    </code></pre>
+
+    <h4>参照を渡す</h4>
+    <pre><code>
+&lt;?php
+$data = ['apple', 'BANaNa', 'Chocolate', 'DANCE'];
+array_walk($data, function(&$value) {
+    $value = mb_convert_case($value, MB_CASE_TITLE);
+});
+print_r($data);
+    </code></pre>
+    <h4>結果</h4>
+    <pre><code>
+<m-b>Array ( [0] => Apple [1] => Banana [2] => Chocolate [3] => Dance )</m-b>
+    </code></pre>
+
+    <h3>マッピング</h3>
+    <pre><code>
+&lt;?php
+$data = [1, 2, 3, 4];
+print_r(array_map(function ($v) {
+    $v * $v;
+}, $data));
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [0] => [1] => [2] => [3] => )</m-b>
+    </code></pre>
+
+    <h4>複数の配列を処理する</h4>
+    <pre><code>
+&lt;?php
+$data1 = [3, 1, 4, 1, 5];
+$data2 = [2, 7, 1, 8];
+print_r(array_map(function ($v1, $v2) {
+    return $v1 * $v2;
+}, $data1, $data2));
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [0] => 6 [1] => 7 [2] => 4 [3] => 8 [4] => 0 )</m-b>
+    </code></pre>
+
+    <h4>callbackにnullを指定する</h4>
+    <pre><code>
+&lt;?php
+$data1 = [3, 1, 4, ];
+$data2 = [2, 7, ];
+print_r(array_map(null, $data1, $data2));
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [0] => Array ( [0] => 3 [1] => 2 ) [1] => Array ( [0] => 1 [1] => 7 ) [2] => Array ( [0] => 4 [1] => ) )</m-b>
+    </code></pre>
+
+    <h3>フィルタリング</h3>
+    <pre><code>
+&lt;?php
+$data = ['Apple', 'BANANA', 'Orange', 'grape', 'PEACH'];
+print_r(array_filter($data, function($v) {
+    return str_contains(mb_convert_case($v, CASE_LOWER), 'o');
+}));
+?>
+    </code></pre>
+    <pre><code>
+<m-b>Array ( )                            </m-b>
+    </code></pre>
+
+    <h4>第3引数 <code>$mode</code> の設定値</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>設定値</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>ARRAY_FILTER_USE_KEY</m-b></td>
+                <td>キーを引数に渡す</td>
+            </tr>
+            <tr>
+                <td><m-b>ARRAY_FILTER_USE_BOTH</m-b></td>
+                <td>キーと値を引数に渡す</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>reduce処理</h3>
+    <pre><code>
+&lt;?php
+$data = [3, 1, 4, 1, 5];
+print array_reduce($data, function($sum, $v) {
+    return $sum + $v;
+}, 1);
+    </code></pre>
+    <pre><code>
+<m-b>15</m-b>
     </code></pre>
 
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>

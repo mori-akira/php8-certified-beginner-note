@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>5.4_正規表現(PCRE)関数</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>5.4_正規表現(PCRE)関数</h2>
+
+    <h3>正規表現で検索する</h3>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$tar = '1-23-456-7890';
+if (preg_match('/(\d{2,4})-(\d{2,4})-(\d{2,4})/', $tar, $data)) {
+    print "電話番号: {$data[0]}" . $br;
+    print "市外局番: {$data[1]}" . $br;
+    print "市内局番: {$data[2]}" . $br;
+    print "加入者番号: {$data[3]}" . $br;
+}
+    </code></pre>
+    <pre><code>
+<m-b>電話番号: 23-456-7890</m-b>
+<m-b>市外局番: 23    </m-b>
+<m-b>市内局番: 456   </m-b>
+<m-b>加入者番号: 7890</m-b>
+    </code></pre>
+
+    <h3>正規表現で全体を検索する</h3>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$tar = &lt;&lt;&lt;EOD
+Pi is 3.1415926...
+Napier number is 2.718281...
+EOD;
+if (preg_match_all('/\d+.\d+\.\.\./', $tar, $data)) {
+    print_r($data);
+    print $br;
+}
+if (preg_match_all('/\d+.\d+\.\.\./', $tar, $data, PREG_SET_ORDER)) {
+    print_r($data);
+    print $br;
+}
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [0] => Array ( [0] => 3.1415926... [1] => 2.718281... ) )</m-b>
+<m-b>Array ( [0] => Array ( [0] => 3.1415926... ) [1] => Array ( [0] => 2.718281... ) )</m-b>
+    </code></pre>
+
+    <h3>正規表現で文字列を置換する</h3>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$tar = 'User(id="Hoge", pw="friofe"), User(id="Fuga", pw="if0343"), User(id="Piyo", pw="ffe00fe")';
+print preg_replace('/pw="(.).*?"/', 'pw="$1..."', $tar, 2, $count) . $br;
+print $count;
+    </code></pre>
+    <pre><code>
+<m-b>User(id="Hoge", pw="f..."), User(id="Fuga", pw="i..."), User(id="Piyo", pw="ffe00fe")</m-b>
+<m-b>2</m-b>
+    </code></pre>
+
+    <h3>正規表現とコールバックで文字列を置換する</h3>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$tar = 'User(id="Hoge", pw="friofe"), User(id="Fuga", pw="if0343"), User(id="Piyo", pw="ffe00fe")';
+print(preg_replace_callback('/pw="(.+?)"/', function ($match) {
+    $mask = preg_replace('/./', '*', $match[1]);
+    return "pw=\"{$mask}\"";
+}, $tar));
+    </code></pre>
+    <pre><code>
+<m-b>User(id="Hoge", pw="******"), User(id="Fuga", pw="******"), User(id="Piyo", pw="*******")</m-b>
+    </code></pre>
+
+    <h3>正規表現で分割する</h3>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$tar = '1234+123-*4567/6789';
+print_r(preg_split('/[+\-*\/]/', $tar, 4));
+print $br;
+print_r(preg_split('/[+\-*\/]/', $tar, -1, PREG_SPLIT_NO_EMPTY));
+print $br;
+print_r(preg_split('/([+\-*\/])/', $tar, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE));
+print $br;
+print_r(preg_split('//', $tar, 7));
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [0] => 1234 [1] => 123 [2] => [3] => 4567/6789 )</m-b>
+<m-b>Array ( [0] => 1234 [1] => 123 [2] => 4567 [3] => 6789 )</m-b>
+<m-b>Array ( [0] => 1234 [1] => + [2] => 123 [3] => - [4] => * [5] => 4567 [6] => / [7] => 6789 )</m-b>
+<m-b>Array ( [0] => [1] => 1 [2] => 2 [3] => 3 [4] => 4 [5] => + [6] => 123-*4567/6789 )</m-b>
+    </code></pre>
+
+    <h3>正規表現の修飾子</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>修飾子</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>i</m-b></td>
+                <td>大文字/小文字を無視</td>
+            </tr>
+            <tr>
+                <td><m-b>m</m-b></td>
+                <td>マルチラインモード</td>
+            </tr>
+            <tr>
+                <td><m-b>s</m-b></td>
+                <td>シングルラインモード</td>
+            </tr>
+            <tr>
+                <td><m-b>x</m-b></td>
+                <td>コメントの有効化</td>
+            </tr>
+            <tr>
+                <td><m-b>u</m-b></td>
+                <td>正規表現パターンをutf-8文字列として扱う</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>
