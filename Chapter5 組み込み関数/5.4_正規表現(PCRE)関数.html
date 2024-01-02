@@ -132,6 +132,69 @@ print_r(preg_split('//', $tar, 7));
         </tbody>
     </table>
 
+    <h3>マルチラインモード</h3>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$tar = &lt;&lt;&lt;EOF
+戦士が3人\n
+弓使いが2人\n
+魔法使いが3人
+EOF;
+if (preg_match_all('/^(.+?)が(\d)人$/', $tar, $data)) {
+    print_r($data[1]);
+    print_r($data[2]);
+} else {
+    print 'No Hit';
+}
+print $br;
+if (preg_match_all('/^(.+?)が(\d)人$/m', $tar, $data)) {
+    print_r($data[1]);
+    print_r($data[2]);
+} else {
+    print 'No Hit';
+}
+    </code></pre>
+    <pre><code>
+<m-b>No Hit</m-b>
+<m-b>Array ( [0] => 戦士 [1] => 弓使い [2] => 魔法使い ) Array ( [0] => 3 [1] => 2 [2] => 3 )</m-b>
+    </code></pre>
+
+    <h3>シングルラインモード</h3>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$tar = "hoge\r\nfuga";
+preg_match('/^.+/', $tar, $match);
+print_r($match);
+print $br;
+preg_match('/^.+/s', $tar, $match);
+print_r($match);
+?>
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [0] => hoge )</m-b>
+<m-b>Array ( [0] => hoge fuga )</m-b>
+    </code></pre>
+
+    <h3>正規表現にコメントを付与</h3>
+    <pre><code>
+&lt;?php
+$tar = "仕事用は、hogehoge@fuga.co.jpです";
+if (preg_match("/
+    [a-zA-Z0-9.!#]+ # local
+    @               # delimiter
+    [a-zA-Z0-9.!#]+ # domain
+/x", $tar, $match)) {
+    print_r($match);
+} else {
+    print 'No Match';
+}
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [0] => hogehoge@fuga.co.jp )</m-b>
+    </code></pre>
+
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
 </body>
