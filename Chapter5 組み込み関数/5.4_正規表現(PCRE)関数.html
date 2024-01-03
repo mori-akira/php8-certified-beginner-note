@@ -199,12 +199,82 @@ if (preg_match("/
     <pre><code>
 &lt;?php
 $tar = 'xxx0120-1234-5678yyy';
-if (preg_match('/(?P<area>\d{2,4})-(?P<city>\d{2,4})-(?P<local>\d{2,4})/', $tar, $match)) {
+if (preg_match('/(?P&lt;area>\d{2,4})-(?P&lt;city>\d{2,4})-(?P&lt;local>\d{2,4})/', $tar, $match)) {
     print_r($match);
 }
     </code></pre>
     <pre><code>
 <m-b>Array ( [0] => 0120-1234-5678 [area] => 0120 [1] => 0120 [city] => 1234 [2] => 1234 [local] => 5678 [3] => 5678 )</m-b>
+    </code></pre>
+
+    <h3>後方参照</h3>
+    <pre><code>
+&lt;?php
+$tar = 'ヒトの子はヒト、カエルの子はオタマジャクシ、カの子はボウフラ';
+if (preg_match_all('/(.+?)の子は\1/', $tar, $match)) {
+    print_r($match);
+}
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [0] => Array ( [0] => ヒトの子はヒト ) [1] => Array ( [0] => ヒト ) )</m-b>
+    </code></pre>
+
+    <h3>グループ化の対象外</h3>
+    <pre><code>
+&lt;?php
+$tar = '192.102.0.3';
+if (preg_match('/(\d+)\.(\d+).(?:\d+).(?:\d+)/', $tar, $match)) {
+    print_r($match);
+}
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [0] => 192.102.0.3 [1] => 192 [2] => 102 )</m-b>
+    </code></pre>
+
+    <h3>後読みと先読み</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>表現</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>A(?=B)</m-b></td>
+                <td>肯定的先読み</td>
+            </tr>
+            <tr>
+                <td><m-b>A(?!B)</m-b></td>
+                <td>否定的先読み</td>
+            </tr>
+            <tr>
+                <td><m-b>(?&lt;=B)A</m-b></td>
+                <td>肯定的後読み</td>
+            </tr>
+            <tr>
+                <td><m-b>(?&lt;!B)A</m-b></td>
+                <td>否定的後読み</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Unicodeプロパティ</h3>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+$tar = 'ただいまメンバー募集中！';
+preg_match('/[\p{Hiragana}]+/u', $tar, $match1);
+preg_match('/[\p{Katakana}]+/u', $tar, $match2);
+preg_match('/[\p{Han}]+/u', $tar, $match3);
+print $match1[0] . $br;
+print $match2[0] . $br;
+print $match3[0] . $br;
+    </code></pre>
+    <pre><code>
+<m-b>ただいま</m-b>
+<m-b>メンバー</m-b>
+<m-b>募集中</m-b>
     </code></pre>
 
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
