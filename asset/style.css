@@ -129,6 +129,7 @@ pre {
     padding: 0 1rem !important;
     background-color: #EEEEEE !important;
     border-left: 4px solid #333 !important;
+    overflow-x: auto;
 }
 
 pre>code {

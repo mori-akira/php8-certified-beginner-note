@@ -195,6 +195,18 @@ if (preg_match("/
 <m-b>Array ( [0] => hogehoge@fuga.co.jp )</m-b>
     </code></pre>
 
+    <h3>名前付きグループ</h3>
+    <pre><code>
+&lt;?php
+$tar = 'xxx0120-1234-5678yyy';
+if (preg_match('/(?P<area>\d{2,4})-(?P<city>\d{2,4})-(?P<local>\d{2,4})/', $tar, $match)) {
+    print_r($match);
+}
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [0] => 0120-1234-5678 [area] => 0120 [1] => 0120 [city] => 1234 [2] => 1234 [local] => 5678 [3] => 5678 )</m-b>
+    </code></pre>
+
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
 </body>
