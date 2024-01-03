@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>5.5_ファイルシステム関数</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>5.5_ファイルシステム関数</h2>
+
+    <h3>ファイルを開いて書き込み</h3>
+    <pre><code>
+&lt;?php
+$data[] = date('Y/m/d H:i:s');  
+$data[] = $_SERVER['SCRIPT_NAME'];
+$data[] = $_SERVER['HTTP_USER_AGENT'];
+$data[] = $_SERVER['SERVER_NAME'];
+$file = <m-b>@fopen</m-b>('access.log', 'a') or <m-b>die</m-b>('could not open file.');
+<m-b>flock</m-b>($file, <m-b>LOCK_EX</m-b>);
+<m-b>fwrite</m-b>($file, implode("\t", $data) . "\n");
+<m-b>flock</m-b>($file, <m-b>LOCK_UN</m-b>);
+<m-b>fclose</m-b>($file);
+    </code></pre>
+    <h4>access.logの内容</h4>
+    <pre><code>
+2024/01/03 15:41:54	/selfphp/chap05/practice_5.5.php	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36	localhost
+2024/01/03 15:41:58	/selfphp/chap05/practice_5.5.php	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36	localhost
+    </code></pre>
+
+    <h3>fopen()に指定可能なオープンモード</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>モード</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>r</m-b></td>
+                <td>読み込み専用</td>
+            </tr>
+            <tr>
+                <td><m-b>r+</m-b></td>
+                <td>読み込み/書き込み可能</td>
+            </tr>
+            <tr>
+                <td><m-b>w</m-b></td>
+                <td>書き込み専用(ファイルの内容をクリア、なければ作成)</td>
+            </tr>
+            <tr>
+                <td><m-b>w+</m-b></td>
+                <td>読み込み/書き込み可能(ファイルの内容をクリア、なければ作成)</td>
+            </tr>
+            <tr>
+                <td><m-b>a</m-b></td>
+                <td>書き込み専用(ファイルの内容に追記、なければ作成)</td>
+            </tr>
+            <tr>
+                <td><m-b>a+</m-b></td>
+                <td>読み込み/書き込み可能(ファイルの内容に追記、なければ作成)</td>
+            </tr>
+            <tr>
+                <td><m-b>x</m-b></td>
+                <td>書き込み専用(ファイルが存在する場合はエラー)</td>
+            </tr>
+            <tr>
+                <td><m-b>x+</m-b></td>
+                <td>読み込み/書き込み可能(ファイルが存在する場合はエラー)</td>
+            </tr>
+            <tr>
+                <td><m-b>c</m-b></td>
+                <td>書き込み専用(存在しない場合は作成、存在する場合は書き込まない)</td>
+            </tr>
+            <tr>
+                <td><m-b>c+</m-b></td>
+                <td>読み込み/書き込み可能(存在しない場合は作成、存在する場合は書き込まない)</td>
+            </tr>
+            <tr>
+                <td><m-b>b</m-b></td>
+                <td>バイナリモード</td>
+            </tr>
+            <tr>
+                <td><m-b>t</m-b></td>
+                <td>テキストモード</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>fwrite()のエイリアス</h3>
+    <p>
+        エイリアスとは、名前のみが異なり同じ機能を持つ関数のことで、fwrite()は<m-b>fputs()</m-b>というエイリアスが存在する。
+    </p>
+
+    <h3>利用可能なロックモード</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ロックモード</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>LOCK_SH</m-b></td>
+                <td>共有ロック(他者による書き込みを禁止する)</td>
+            </tr>
+            <tr>
+                <td><m-b>LOCK_EX</m-b></td>
+                <td>排他ロック(他者による読み込みを禁止する)</td>
+            </tr>
+            <tr>
+                <td><m-b>LOCK_UN</m-b></td>
+                <td>ロックの解除</td>
+            </tr>
+            <tr>
+                <td><m-b>LOCK_NB</m-b></td>
+                <td>
+                    非ブロックモード<br>
+                    他のモードと論理和で併用して用いる。ロックが取得できない場合に、待たずに即<m-b>falseを返す</m-b>ようになる。
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>
