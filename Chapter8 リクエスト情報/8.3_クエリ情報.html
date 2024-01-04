@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>8.3_クエリ情報</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>8.3_クエリ情報</h2>
+
+    <h3>クエリ情報を取得する</h3>
+    <pre><code>
+&lt;?php
+// クエリパラメータ「?name=木暮&age=27」でアクセス
+print 'こんにちは、' . <m-b>$_GET['name']</m-b> . 'さん。';
+    </code></pre>
+
+    <h3>URLエンコード</h3>
+    <pre><code>
+&lt;?php
+print urlencode('木暮');
+    </code></pre>
+    <pre><code>
+<m-b>%E6%9C%A8%E6%9A%AE</m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

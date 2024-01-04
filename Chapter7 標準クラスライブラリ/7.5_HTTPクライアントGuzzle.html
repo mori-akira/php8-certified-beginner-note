@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>7.5_HTTPクライアントGuzzle</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>7.5_HTTPクライアントGuzzle</h2>
+
+    <h3>HTTP通信の基本</h3>
+    <pre><code>
+&lt;?php
+require '../../vendor/<m-b>autoload.php</m-b>';
+$client = new <m-b>GuzzleHttp\Client</m-b>(['<m-b>base_uri</m-b>' => 'https://wings.msn.to/',]);
+$res = <m-b>$client->request</m-b>('get', '/tmp/sample.txt');
+print $res-><m-b>getBody()</m-b>;
+    </code></pre>
+
+    <h3>request()メソッドの引数$optionに指定可能な主なオプション</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>オプション</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>base_uri</m-b></td>
+                <td>基底URI</td>
+            </tr>
+            <tr>
+                <td><m-b>headers</m-b></td>
+                <td>リクエストヘッダ(連想配列)</td>
+            </tr>
+            <tr>
+                <td><m-b>json</m-b></td>
+                <td>JSONデータ</td>
+            </tr>
+            <tr>
+                <td><m-b>form_params</m-b></td>
+                <td>フォームの値</td>
+            </tr>
+            <tr>
+                <td><m-b>body</m-b></td>
+                <td>リクエストボディ</td>
+            </tr>
+            <tr>
+                <td><m-b>auth</m-b></td>
+                <td>基本認証([ユーザ名, パスワード]形式の配列)</td>
+            </tr>
+            <tr>
+                <td><m-b>connect_timeout</m-b></td>
+                <td>接続タイムアウト</td>
+            </tr>
+            <tr>
+                <td><m-b>timeout</m-b></td>
+                <td>応答タイムアウト</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>ResponseInterfaceオブジェクトの主なメソッド</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>メソッド</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>getStatusCode()</m-b></td>
+                <td>ステータスコード</td>
+            </tr>
+            <tr>
+                <td><m-b>getHeaders()</m-b></td>
+                <td>レスポンスヘッダ</td>
+            </tr>
+            <tr>
+                <td><m-b>hasHeader($name)</m-b></td>
+                <td>指定のヘッダが存在するか</td>
+            </tr>
+            <tr>
+                <td><m-b>getHeader($name)</m-b></td>
+                <td>指定のヘッダ値(配列)</td>
+            </tr>
+            <tr>
+                <td><m-b>getHeaderLine($name)</m-b></td>
+                <td>指定のヘッダ値(カンマ区切りの文字列)</td>
+            </tr>
+            <tr>
+                <td><m-b>getBody()</m-b></td>
+                <td>リクエストボディ</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>フォームをPOSTする</h3>
+    <pre><code>
+&lt;?php
+require_once '../../vendor/autoload.php';
+$client = new GuzzleHttp\Client(['base_uri' => 'https://httpbin.org/']);
+$res = $client-><m-b>post</m-b>('/post', [
+    '<m-b>form_params</m-b>' => [
+        'name' => '木暮',
+        'age' => 27,
+    ],
+]);
+print_r(<m-b>json_decode($res->getBody())</m-b>->form);
+    </code></pre>
+    <pre><code>
+stdClass Object ( [age] => 27 [name] => 木暮 )
+    </code></pre>
+
+    <h3>識別子に反するキーにアクセスする場合</h3>
+    <pre><code>
+&lt;?php
+// レスポンスをjsonデコードした結果$objに対し、「hoge-fuga」キーにアクセスしたい場合
+print $obj-><m-b>{'hoge-fuga'}</m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

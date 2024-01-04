@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>7.4_外部ライブラリの活用</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>7.4_外部ライブラリの活用</h2>
+
+    <h3>Composerのメリット</h3>
+    <ol>
+        <li>インストール/アンインストールをコマンド1つで実行できる</li>
+        <li><m-b>アプリ</m-b>単位でパッケージを管理する</li>
+        <li>ライブラリの<m-b>自動ローディング</m-b>機能を利用できる</li>
+        <li>対応するライブラリが豊富である</li>
+    </ol>
+
+    <h3>各種ファイルの役割</h3>
+    <ul>
+        <li><m-b>composer.json</m-b>: 使用するライブラリとバージョンを記述する。開発者が編集するケースもある。</li>
+        <li><m-b>composer.lock</m-b>: composerが実際にインストールしたライブラリのバージョンを管理する。開発者が編集することはない。</li>
+    </ul>
+
+    <h3>Composerのコマンド</h3>
+    <ul>
+        <li><m-b>composer install</m-b>: composer.lockがある場合はその情報に基づいて、ない場合はcomposer.jsonをみてライブラリをインストールする。</li>
+        <li><m-b>composer update</m-b>: composer.jsonの内容を優先してライブラリをインストールする。</li>
+        <li><m-b>composer require</m-b>: ライブラリをインストールする。</li>
+        <li><m-b>composer require --dev</m-b>: 開発用にライブラリをインストールする。</li>
+        <li><m-b>composer remove</m-b>: ライブラリをアンインストールする。</li>
+        <li><m-b>composer validate</m-b>: composer.jsonを検証する。</li>
+        <li><m-b>composer search</m-b>: ライブラリを検索する。</li>
+        <li><m-b>composer show</m-b>: 指定したパッケージの情報を表示</li>
+        <li><m-b>composer show -i</m-b>: インストール済みライブラリの情報を表示</li>
+        <li><m-b>composer show -p</m-b>: プラットフォームパッケージ(PHP拡張)の情報を表示</li>
+    </ul>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

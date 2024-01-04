@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>8.1_リクエスト情報</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>8.1_リクエスト情報</h2>
+
+    <h3>スーパーグローバル変数</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>変数</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>$_POST</m-b></td>
+                <td>POST形式のHTMLフォームから渡された情報</td>
+            </tr>
+            <tr>
+                <td><m-b>$_GET</m-b></td>
+                <td>クエリで渡された情報</td>
+            </tr>
+            <tr>
+                <td><m-b>$_FILES</m-b></td>
+                <td>アップロードされたファイルに関する情報</td>
+            </tr>
+            <tr>
+                <td><m-b>$_SERVER</m-b></td>
+                <td>リクエストヘッダ、またはサーバ固有の変数情報</td>
+            </tr>
+            <tr>
+                <td><m-b>$_ENV</m-b></td>
+                <td>サーバサイドで定義された環境変数</td>
+            </tr>
+            <tr>
+                <td><m-b>$_COOKIE</m-b></td>
+                <td>クッキー経由で渡された情報</td>
+            </tr>
+            <tr>
+                <td><m-b>$_SESSION</m-b></td>
+                <td>セッション経由で渡された情報</td>
+            </tr>
+            <tr>
+                <td><m-b>$_REQUEST</m-b></td>
+                <td>$_GET、$_POST、$_COOKIEをまとめて扱う</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

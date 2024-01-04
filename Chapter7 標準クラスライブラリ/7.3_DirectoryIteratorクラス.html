@@ -12,6 +12,94 @@
 <body>
     <h2>7.3_DirectoryIteratorクラス</h2>
 
+    <h3>ディレクトリ配下のファイル情報を出力</h3>
+    <pre><code>
+&lt;table>
+    &lt;thead>
+        &lt;tr>
+            &lt;th>ファイル名&lt;/th>
+            &lt;th>サイズ&lt;/th>
+            &lt;th>作成日時&lt;/th>
+            &lt;th>最終アクセス日時&lt;/th>
+            &lt;th>最終更新日時&lt;/th>
+        &lt;/tr>
+    &lt;/thead>
+    &lt;tbody>
+        &lt;?php
+        $dir = new DirectoryIterator('./');
+        foreach ($dir as $file) {
+            if ($file->isFile()) {
+        ?>
+            &lt;tr>
+                &lt;td style="padding: .2rem 1rem;">&lt;?= $file->getFileName(); ?>&lt;/td>
+                &lt;td style="padding: .2rem 1rem;">&lt;?= $file->getSize(); ?>&lt;/td>
+                &lt;td style="padding: .2rem 1rem;">&lt;?= date(DateTime::ATOM, $file->getCTime()); ?>&lt;/td>
+                &lt;td style="padding: .2rem 1rem;">&lt;?= date(DateTime::ATOM, $file->getATime()); ?>&lt;/td>
+                &lt;td style="padding: .2rem 1rem;">&lt;?= date(DateTime::ATOM, $file->getMTime()); ?>&lt;/td>
+            &lt;/tr>
+        &lt;?php
+            }
+        }
+        ?>
+    &lt;/tbody>
+&lt;/table>    
+    </code></pre>
+    <table>
+        <thead>
+            <tr>
+                <th>ファイル名</th>
+                <th>サイズ</th>
+                <th>作成日時</th>
+                <th>最終アクセス日時</th>
+                <th>最終更新日時</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: .2rem 1rem;">7.2.php</td>
+                <td style="padding: .2rem 1rem;">1408</td>
+                <td style="padding: .2rem 1rem;">2024-01-04T08:22:01+01:00</td>
+                <td style="padding: .2rem 1rem;">2024-01-04T09:34:20+01:00</td>
+                <td style="padding: .2rem 1rem;">2024-01-04T09:26:53+01:00</td>
+            </tr>
+            <tr>
+                <td style="padding: .2rem 1rem;">7.3.php</td>
+                <td style="padding: .2rem 1rem;">972</td>
+                <td style="padding: .2rem 1rem;">2024-01-04T09:35:33+01:00</td>
+                <td style="padding: .2rem 1rem;">2024-01-04T12:48:56+01:00</td>
+                <td style="padding: .2rem 1rem;">2024-01-04T12:48:54+01:00</td>
+            </tr>
+            <tr>
+                <td style="padding: .2rem 1rem;">prac2.php</td>
+                <td style="padding: .2rem 1rem;">199</td>
+                <td style="padding: .2rem 1rem;">2023-12-26T14:52:59+01:00</td>
+                <td style="padding: .2rem 1rem;">2023-12-27T14:58:10+01:00</td>
+                <td style="padding: .2rem 1rem;">2023-12-26T14:52:59+01:00</td>
+            </tr>
+            <tr>
+                <td style="padding: .2rem 1rem;">prac3.php</td>
+                <td style="padding: .2rem 1rem;">449</td>
+                <td style="padding: .2rem 1rem;">2023-12-26T14:52:59+01:00</td>
+                <td style="padding: .2rem 1rem;">2023-12-27T14:58:10+01:00</td>
+                <td style="padding: .2rem 1rem;">2023-12-26T14:52:59+01:00</td>
+            </tr>
+            <tr>
+                <td style="padding: .2rem 1rem;">p_datetime.php</td>
+                <td style="padding: .2rem 1rem;">112</td>
+                <td style="padding: .2rem 1rem;">2023-12-26T14:52:59+01:00</td>
+                <td style="padding: .2rem 1rem;">2023-12-27T14:58:10+01:00</td>
+                <td style="padding: .2rem 1rem;">2023-12-26T14:52:59+01:00</td>
+            </tr>
+            <tr>
+                <td style="padding: .2rem 1rem;">p_dir.php</td>
+                <td style="padding: .2rem 1rem;">169</td>
+                <td style="padding: .2rem 1rem;">2023-12-26T14:52:59+01:00</td>
+                <td style="padding: .2rem 1rem;">2023-12-27T14:58:10+01:00</td>
+                <td style="padding: .2rem 1rem;">2023-12-26T14:52:59+01:00</td>
+            </tr>
+        </tbody>
+    </table>
+
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
 </body>

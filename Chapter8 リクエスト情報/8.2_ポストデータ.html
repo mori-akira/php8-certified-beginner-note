@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>8.2_ポストデータ</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>8.2_ポストデータ</h2>
+
+    <h3>ポストデータを取得する</h3>
+    <h4>送信側</h4>
+    <pre><code>
+&lt;form method="POST" action="post2.php">
+    &lt;input id="name" name="name" type="text" />
+    &lt;input type="submit" value="submit" />
+&lt;/form>
+    </code></pre>
+    <h4>受信側</h4>
+    <pre><code>
+&lt;p>
+    こんにちは、&lt;?= <m-b>$_POST['name']</m-b> ?>さん。
+&lt;/p>
+    </code></pre>
+
+    <h3>HTMLエスケープ</h3>
+    <p>
+        HTMLエスケープを行う場合、<m-b>htmlspecialchars()</m-b>関数を使用する。
+    </p>
+    <h4>引数$flagsの設定値</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>分類</th>
+                <th>設定値</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="3">クォート</td>
+                <td><m-b>ENT_COMPAT</m-b></td>
+                <td>ダブルクォートは変換するが、シングルクォートは変換しない</td>
+            </tr>
+            <tr>
+                <td><m-b>ENT_QUOTES</m-b></td>
+                <td>ダブルクォート/シングルクォートを共に変換する</td>
+            </tr>
+            <tr>
+                <td><m-b>ENT_NOQUOTES</m-b></td>
+                <td>ダブルクォート/シングルクォートを共に変換しない</td>
+            </tr>
+            <tr>
+                <td rowspan="3">無効</td>
+                <td><m-b>ENT_SUBSTITUTE</m-b></td>
+                <td>無効なシーケンスを渡したとき、代替文字で置換(既定では空文字に変換)</td>
+            </tr>
+            <tr>
+                <td><m-b>ENT_DISALLOWED</m-b></td>
+                <td>現在の文書型で無効なシーkジェンスを渡したとき、代替文字で置換</td>
+            </tr>
+            <tr>
+                <td><m-b>ENT_IGNORE</m-b></td>
+                <td>無効なシーケンスを渡したとき、切り捨て(非推奨)</td>
+            </tr>
+            <tr>
+                <td rowspan="4">文書型</td>
+                <td><m-b>ENT_HTML401</m-b></td>
+                <td>HTML4.01として処理</td>
+            </tr>
+            <tr>
+                <td><m-b>ENT_XML1</m-b></td>
+                <td>XML1.0として処理</td>
+            </tr>
+            <tr>
+                <td><m-b>ENT_XHTML</m-b></td>
+                <td>XHTMLとして処理</td>
+            </tr>
+            <tr>
+                <td><m-b>ENT_HTML5</m-b></td>
+                <td>HTML5として処理</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        $flagsの値は、各分類から<m-b>|</m-b>で組み合わせて使用する。
+        原則として<m-b>ENT_QUOTES | ENT_HTML5</m-b>を使用する。
+    </p>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

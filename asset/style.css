@@ -97,7 +97,8 @@ table>thead th {
     background-color: #333;
 }
 
-table>tbody td {
+table>tbody td,
+table>tbody th {
     padding: .3rem 1rem;
     border-bottom: 1px solid black;
 }

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>8.4_ヘッダー情報</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>8.4_ヘッダー情報</h2>
+
+    <h3>ヘッダーの種類</h3>
+    <ul>
+        <li><m-b>エンティティヘッダー</m-b>: コンテンツに関する情報</li>
+        <li><m-b>一般ヘッダー</m-b>: リクエスト/レスポンス双方で利用する情報</li>
+        <li><m-b>リクエストヘッダー</m-b>: クライアントに関する情報</li>
+        <li><m-b>レスポンスヘッダー</m-b>: サーバーに関する情報</li>
+    </ul>
+
+    <h3>リクエストヘッダーを取得する</h3>
+    <pre><code>
+&lt;table>
+    &lt;?php
+    foreach ($_SERVER as $key => $val) {
+        if (str_starts_with($key, 'HTTP_')) {
+    ?>
+    &lt;tr>
+        &lt;th>&lt;?=$key?>&lt;/th>
+        &lt;td>&lt;?=$val?>&lt;/td>
+    &lt;/tr>
+    &lt;?php
+        }
+    }
+    ?>
+&lt;/table>
+    </code></pre>
+    <table>
+        <tbody>
+            <tr>
+                <th>HTTP_HOST</th>
+                <td>localhost</td>
+            </tr>
+            <tr>
+                <th>HTTP_CONNECTION</th>
+                <td>keep-alive</td>
+            </tr>
+            <tr>
+                <th>HTTP_SEC_CH_UA</th>
+                <td>"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"</td>
+            </tr>
+            <tr>
+                <th>HTTP_SEC_CH_UA_MOBILE</th>
+                <td>?0</td>
+            </tr>
+            <tr>
+                <th>HTTP_SEC_CH_UA_PLATFORM</th>
+                <td>"Windows"</td>
+            </tr>
+            <tr>
+                <th>HTTP_UPGRADE_INSECURE_REQUESTS</th>
+                <td>1</td>
+            </tr>
+            <tr>
+                <th>HTTP_USER_AGENT</th>
+                <td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0
+                    Safari/537.36</td>
+            </tr>
+            <tr>
+                <th>HTTP_ACCEPT</th>
+                <td>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+                </td>
+            </tr>
+            <tr>
+                <th>HTTP_SEC_FETCH_SITE</th>
+                <td>none</td>
+            </tr>
+            <tr>
+                <th>HTTP_SEC_FETCH_MODE</th>
+                <td>navigate</td>
+            </tr>
+            <tr>
+                <th>HTTP_SEC_FETCH_USER</th>
+                <td>?1</td>
+            </tr>
+            <tr>
+                <th>HTTP_SEC_FETCH_DEST</th>
+                <td>document</td>
+            </tr>
+            <tr>
+                <th>HTTP_ACCEPT_ENCODING</th>
+                <td>gzip, deflate, br</td>
+            </tr>
+            <tr>
+                <th>HTTP_ACCEPT_LANGUAGE</th>
+                <td>ja,en-US;q=0.9,en;q=0.8</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>レスポンスヘッダーを設定する</h3>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>
