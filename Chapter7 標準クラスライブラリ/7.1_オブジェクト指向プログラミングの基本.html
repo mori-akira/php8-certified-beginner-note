@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>7.1_オブジェクト指向プログラミングの基本</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>7.1_オブジェクト指向プログラミングの基本</h2>
+
+    <h3>インスタンス生成</h3>
+    <pre><code>
+$変数 = <m-b>new</m-b> クラス(引数...);
+    </code></pre>
+
+    <h3>メソッド・プロパティの呼び出し</h3>
+    <pre><code>
+$変数 = オブジェクト変数<m-b>-></m-b>メソッド(引数);
+$変数 = オブジェクト変数<m-b>-></m-b>プロパティ;
+    </code></pre>
+
+    <h3>null安全演算子</h3>
+    <pre><code>
+$dt = null;
+print $dt<m-b>?-></m-b>format('Y/m/d'); // $dtがnullでもエラーが発生しない
+    </code></pre>
+
+    <h3>静的メソッド/静的プロパティの呼び出し</h3>
+    <pre><code>
+$変数 = クラス<m-b>::</m-b>静的メソッド(引数);
+$変数 = クラス<m-b>::</m-b>静的プロパティ;
+    </code></pre>
+
+    <h3>クラス定数の呼び出し</h3>
+    <pre><code>
+$変数 = クラス<m-b>::</m-b>クラス定数;
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

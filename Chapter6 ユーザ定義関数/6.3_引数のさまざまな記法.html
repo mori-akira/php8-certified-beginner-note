@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>6.3_引数のさまざまな記法</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>6.3_引数のさまざまな記法</h2>
+
+    <h3>名前付き引数</h3>
+    <pre><code>
+&lt;?php
+print abs(num: -10) . '&lt;br>';
+print pow(num: 2, exponent: 4);
+    </code></pre>
+    <pre><code>
+<m-b>10</m-b>
+<m-b>16</m-b>
+    </code></pre>
+
+    <h3>可変長引数</h3>
+    <pre><code>
+&lt;?php
+function sum(float <m-b>...$args</m-b>): void {
+    var_dump($args);
+}
+    </code></pre>
+    <pre><code>
+<m-b>array(3) { [0]=> float(0) [1]=> float(1) [2]=> float(2) }</m-b>
+    </code></pre>
+
+    <h3>引数のアンパック</h3>
+    <pre><code>
+&lt;?php
+print pow(<m-b>...[2, 5]</m-b>);
+    </code></pre>
+    <pre><code>
+32
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

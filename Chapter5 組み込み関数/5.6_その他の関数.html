@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>5.6_その他の関数</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>5.6_その他の関数</h2>
+
+    <h3>変数を破棄する</h3>
+    <pre><code>
+&lt;?php
+$tmp = 'hoge';
+var_dump($tmp);
+unset($tmp);
+var_dump($tmp);
+    </code></pre>
+    <pre><code>
+<m-b>string(4) "hoge"</m-b>
+<m-b>Warning: Undefined variable $tmp in C:\xampp\htdocs\selfphp\chap05\practice_5.6.php on line 5</m-b>
+<m-b>NULL</m-b>
+    </code></pre>
+
+    <h3>型を判定する</h3>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+var_dump(is_int(101));
+var_dump(is_int(101.0));
+var_dump(is_int('101'));
+print $br;
+var_dump(is_numeric(101));
+var_dump(is_numeric(101.0));
+var_dump(is_numeric('101'));
+print $br;
+var_dump(is_null(null));
+var_dump(is_null(''));
+print $br;
+var_dump(is_resource(fopen('access.log', 'r')));
+var_dump(is_object(fopen('access.log', 'r')));
+    </code></pre>
+    <pre><code>
+<m-b>bool(true) bool(false) bool(false)</m-b>
+<m-b>bool(true) bool(true) bool(true)</m-b>
+<m-b>bool(true) bool(false)</m-b>
+<m-b>bool(true) bool(false)</m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

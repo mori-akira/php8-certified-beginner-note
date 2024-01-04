@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>6.5_ジェネレータ</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>6.5_ジェネレータ</h2>
+
+    <h3>ジェネレータ</h3>
+    <pre><code>
+&lt;?php
+function gen1(int $limit) {
+    for ($i = 2; $i &lt; $limit; $i++) {
+        for ($j = 2; $j * $j &lt;= $i; $j++) {
+            if ($i % $j == 0) {
+                continue 2;
+            }
+        }
+        yield $i;
+    }
+}
+foreach (gen1(20) as $v) {
+    print $v . ', ';
+}
+    </code></pre>
+    <pre><code>
+<m-b>2, 3, 5, 7, 11, 13, 17, 19,</m-b>
+    </code></pre>
+
+    <h3>ジェネレータの結果を取得</h3>
+    <pre><code>
+&lt;?php
+function gen2(int $limit) {
+    $cnt = 0;
+    for ($i = 2; $i &lt; $limit; $i++) {
+        for ($j = 2; $j * $j &lt;= $i; $j++) {
+            if ($i % $j == 0) {
+                continue 2;
+            }
+        }
+        $cnt++;
+        yield $i;
+    }
+    <m-b>return $cnt</m-b>;
+}
+$gen = gen2(20);
+foreach ($gen as $v) {
+    print $v . ', ';
+}
+print "count: {<m-b>$gen->getReturn()</m-b>}";
+    </code></pre>
+    <pre><code>
+2, 3, 5, 7, 11, 13, 17, 19, count: 8
+    </code></pre>
+
+    <h3>一部の処理を他のジェネレータに移譲する</h3>
+    <pre><code>
+&lt;pre>
+&lt;?php
+// 九九表を出力する
+function getMatrix() {
+    for ($i = 1; $i &lt;= 9; $i++) {
+        <m-b>yield from getLine($i)</m-b>;
+        yield "\n";
+    }
+}
+function getLine(int $base) {
+    for ($i = 1; $i &lt;= 9; $i++) {
+        <m-b>yield sprintf('%4d', $base * $i)</m-b>;
+    }
+}
+foreach (getMatrix() as $v) {
+    print $v;
+}
+?>
+&lt;/pre>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

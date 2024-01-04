@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>6.2_変数のスコープ</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>6.2_変数のスコープ</h2>
+
+    <h3>PHPのスコープ</h3>
+    <ul>
+        <li><m-b>グローバルスコープ</m-b>: スクリプト全体から参照できる</li>
+        <li><m-b>ローカルスコープ</m-b>: 関数内でのみ参照できる</li>
+    </ul>
+
+    <h3>ローカルスコープ</h3>
+    <pre><code>
+&lt;?php
+$x = 10;
+function checkScope1(): int {
+    return ++$x;
+}
+@print checkScope1() . ',';
+@print $x;
+    </code></pre>
+    <pre><code>
+<m-b>1,10</m-b>
+    </code></pre>
+
+    <h3>グローバルスコープ</h3>
+    <pre><code>
+&lt;?php
+$x = 10;
+function checkScope2(): int {
+    <m-b>global $x</m-b>;
+    return ++$x;
+}
+@print checkScope2() . ',';
+@print $x;
+    </code></pre>
+    <pre><code>
+<m-b>11,11</m-b>
+    </code></pre>
+
+    <h3>静的変数</h3>
+    <pre><code>
+&lt;?php
+function func(): int {
+    <m-b>static $x = 0</m-b>;
+    return ++$x;
+}
+print func() . ',' . func();
+    </code></pre>
+    <pre><code>
+<m-b>1,2</m-b>
+    </code></pre>
+
+    <h3>グローバル変数のunset()</h3>
+    <pre><code>
+&lt;?php
+$x = 10;
+function checkScope3() {
+    global $x;
+    unset($x);
+    return ++$x;
+}
+@print checkScope3() . ',' . $x;
+    </code></pre>
+    <pre><code>
+<m-b>1,10</m-b>
+    </code></pre>
+
+    <h3>static変数のunset()</h3>
+    <pre><code>
+&lt;?php
+function checkStatic(): void {
+    static $x = 0;
+    @print 'before unset: ' . ++$x . ', ';
+    unset($x);
+    @print 'after unset: ' . ++$x . '&lt;br>';
+}
+checkStatic();
+checkStatic();
+checkStatic();
+    </code></pre>
+    <pre><code>
+<m-b>before unset: 1, after unset: 1</m-b>
+<m-b>before unset: 2, after unset: 1</m-b>
+<m-b>before unset: 3, after unset: 1</m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

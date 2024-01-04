@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>6.4_関数呼び出しと戻り値</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>6.4_関数呼び出しと戻り値</h2>
+
+    <h3>複数の戻り値</h3>
+    <pre><code>
+&lt;?php
+function min_max(float ...$args): array {
+    return [min($args), max($args)];
+}
+[$min, $max] = min_max(0.3, 0.9, -0.5, 0.1, -0.7);
+print "min: {$min}, max: {$max}";
+    </code></pre>
+    <pre><code>
+<m-b>min: -0.7, max: 0.9</m-b>
+    </code></pre>
+
+    <h3>可変関数</h3>
+    <pre><code>
+&lt;?php
+function hoge(): string {
+    return 'fuga';
+}
+function fuga(): string {
+    return 'hoge';
+}
+$name = 'hoge';
+for ($i = 0; $i &lt; 4; $i++) {
+    $name = $name();
+    print $name . ', ';
+}
+    </code></pre>
+    <pre><code>
+<m-b>fuga, hoge, fuga, hoge,</m-b>
+    </code></pre>
+
+    <h3>無名関数(クロージャ)</h3>
+    <pre><code>
+&lt;?php
+function arrayWalk(array $ary, callable $func): void {
+    foreach($ary as $k => $v) {
+        $func($k, $v);
+    }
+}
+arrayWalk(['ラーメン', 'つけ麵', '汁なし'], function(int | string $k, mixed $v): void {
+    print "{$k}: {$v}&lt;br>";
+});
+    </code></pre>
+    <pre><code>
+<m-b>0: ラーメン</m-b>
+<m-b>1: つけ麵</m-b>
+<m-b>2: 汁なし</m-b>
+    </code></pre>
+
+    <h3>親スコープの変数を引き継ぐ</h3>
+    <pre><code>
+&lt;?php
+$res = 0;
+$func = function(int $v) <m-b>use(&$res)</m-b>: void {
+    $res += $v;
+};
+foreach ([3, 1, 4, 1, 5, 9] as $n) {
+    $func($n);
+}
+print $res;
+    </code></pre>
+    <pre><code>
+<m-b>23</m-b>
+    </code></pre>
+
+    <h3>アロー関数</h3>
+    <pre><code>
+&lt;?php
+$keys = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'];
+$data = ['⑤', '⑩', '④', '⑤', '②'];
+usort($data, fn($a, $b) => array_search($a, $keys) &lt;=> array_search($b, $keys));
+print_r($data);
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [0] => ② [1] => ④ [2] => ⑤ [3] => ⑤ [4] => ⑩ )</m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

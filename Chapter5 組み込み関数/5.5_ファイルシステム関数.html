@@ -127,6 +127,337 @@ $file = <m-b>@fopen</m-b>('access.log', 'a') or <m-b>die</m-b>('could not open f
         </tbody>
     </table>
 
+    <h3>csvの読み込み</h3>
+    <pre><code>
+&lt;table>
+&lt;thead>
+    &lt;tr>
+        &lt;th>団体コード&lt;/th>
+        &lt;th>都道府県&lt;/th>
+        &lt;th>URL&lt;/th>
+    &lt;/tr>
+&lt;/thead>
+&lt;tbody>
+    &lt;?php
+        $file = fopen('opendata_lg_pref_list.csv', 'r');
+        <m-b>flock($file, LOCK_SH)</m-b>;
+        $line = <m-b>fgetcsv</m-b>($file, 1024, "\t", '"', "\\");
+        while ($line = <m-b>fgetcsv</m-b>($file, 1024, "\t", '"', "\\")) {
+            print '&lt;tr>';
+            foreach ($line as $value) {
+                print '&lt;td>' . $value . '&lt;/td>';
+            }
+            print '&lt;/tr>';
+        }
+        <m-b>flock($file, LOCK_UN)</m-b>;
+        fclose($file);
+    ?>
+&lt;/tbody>
+&lt;/table>
+    </code></pre>
+    <table>
+        <thead>
+            <tr>
+                <th>団体コード</th>
+                <th>都道府県</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>10006</td>
+                <td>北海道</td>
+                <td>http://www.pref.hokkaido.lg.jp/ss/jsk/opendata/opendata.htm</td>
+            </tr>
+            <tr>
+                <td>20001</td>
+                <td>青森県</td>
+                <td>https://opendata.pref.aomori.lg.jp/</td>
+            </tr>
+            <tr>
+                <td>30007</td>
+                <td>岩手県</td>
+                <td>https://www.pref.iwate.jp/kensei/seisaku/jouhouka/1012070/index.html</td>
+            </tr>
+            <tr>
+                <td>40002</td>
+                <td>宮城県</td>
+                <td>http://www.pref.miyagi.jp/site/opendata-miyagi/</td>
+            </tr>
+            <tr>
+                <td>50008</td>
+                <td>秋田県</td>
+                <td>https://www.pref.akita.lg.jp/pages/archive/32419</td>
+            </tr>
+            <tr>
+                <td>60003</td>
+                <td>山形県</td>
+                <td>http://www.pref.yamagata.jp/ou/kikakushinko/020051/opendata.html</td>
+            </tr>
+            <tr>
+                <td>70009</td>
+                <td>福島県</td>
+                <td>https://www.pref.fukushima.lg.jp/sec/11045a/open-data-top.html</td>
+            </tr>
+            <tr>
+                <td>80004</td>
+                <td>茨城県</td>
+                <td>http://www.pref.ibaraki.jp/kikaku/joho/it/opendata/od-00.html</td>
+            </tr>
+            <tr>
+                <td>90000</td>
+                <td>栃木県</td>
+                <td>http://tochigiken.jp/</td>
+            </tr>
+            <tr>
+                <td>100005</td>
+                <td>群馬県</td>
+                <td>https://www.pref.gunma.jp/07/b2700057.html</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>1行ずつ読み込み</h3>
+    <pre><code>
+&lt;table>
+&lt;thead>
+    &lt;tr>
+        &lt;th>団体コード&lt;/th>
+        &lt;th>都道府県&lt;/th>
+        &lt;th>URL&lt;/th>
+    &lt;/tr>
+&lt;/thead>
+&lt;tbody>
+    &lt;?php
+        $file = fopen('opendata_lg_pref_list.csv', 'r');
+        <m-b>flock($file, LOCK_SH)</m-b>;
+        $line = <m-b>fgets</m-b>($file, 1024);
+        while ($line = <m-b>fgets</m-b>($file, 1024)) {
+            foreach (<m-b>explode("\t", $line)</m-b> as $value) {
+                print '&lt;td>' . $value . '&lt;/td>';
+            }
+            print '&lt;/tr>';
+        }
+        <m-b>flock($file, LOCK_UN)</m-b>;
+        fclose($file);
+    ?>
+&lt;/tbody>
+&lt;/table>
+    </code></pre>
+    <table>
+        <thead>
+            <tr>
+                <th>団体コード</th>
+                <th>都道府県</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>10006</td>
+                <td>北海道</td>
+                <td>http://www.pref.hokkaido.lg.jp/ss/jsk/opendata/opendata.htm</td>
+            </tr>
+            <tr>
+                <td>20001</td>
+                <td>青森県</td>
+                <td>https://opendata.pref.aomori.lg.jp/</td>
+            </tr>
+            <tr>
+                <td>30007</td>
+                <td>岩手県</td>
+                <td>https://www.pref.iwate.jp/kensei/seisaku/jouhouka/1012070/index.html</td>
+            </tr>
+            <tr>
+                <td>40002</td>
+                <td>宮城県</td>
+                <td>http://www.pref.miyagi.jp/site/opendata-miyagi/</td>
+            </tr>
+            <tr>
+                <td>50008</td>
+                <td>秋田県</td>
+                <td>https://www.pref.akita.lg.jp/pages/archive/32419</td>
+            </tr>
+            <tr>
+                <td>60003</td>
+                <td>山形県</td>
+                <td>http://www.pref.yamagata.jp/ou/kikakushinko/020051/opendata.html</td>
+            </tr>
+            <tr>
+                <td>70009</td>
+                <td>福島県</td>
+                <td>https://www.pref.fukushima.lg.jp/sec/11045a/open-data-top.html</td>
+            </tr>
+            <tr>
+                <td>80004</td>
+                <td>茨城県</td>
+                <td>http://www.pref.ibaraki.jp/kikaku/joho/it/opendata/od-00.html</td>
+            </tr>
+            <tr>
+                <td>90000</td>
+                <td>栃木県</td>
+                <td>http://tochigiken.jp/</td>
+            </tr>
+            <tr>
+                <td>100005</td>
+                <td>群馬県</td>
+                <td>https://www.pref.gunma.jp/07/b2700057.html</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>ファイルをまとめて読み込む</h3>
+    <pre><code>
+&lt;table>
+    &lt;thead>
+        &lt;tr>
+            &lt;th>団体コード&lt;/th>
+            &lt;th>都道府県&lt;/th>
+            &lt;th>URL&lt;/th>
+        &lt;/tr>
+    &lt;/thead>
+    &lt;tbody>
+        &lt;?php
+            $file = <m-b>file</m-b>('opendata_lg_pref_list.csv', FILE_IGNORE_NEW_LINES);
+            for ($i = 1; <m-b>$i &lt; count($file)</m-b>; $i++) {
+                print '&lt;tr>';
+                foreach (<m-b>explode("\t", $file[$i])</m-b> as $val) {
+                    print '&lt;td>' . $val . '&lt;/td>';
+                }
+                print '&lt;/tr>';
+            }
+        ?>
+    &lt;/tbody>
+&lt;/table>
+    </code></pre>
+    <table>
+        <thead>
+            <tr>
+                <th>団体コード</th>
+                <th>都道府県</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>10006</td>
+                <td>北海道</td>
+                <td>http://www.pref.hokkaido.lg.jp/ss/jsk/opendata/opendata.htm</td>
+            </tr>
+            <tr>
+                <td>20001</td>
+                <td>青森県</td>
+                <td>https://opendata.pref.aomori.lg.jp/</td>
+            </tr>
+            <tr>
+                <td>30007</td>
+                <td>岩手県</td>
+                <td>https://www.pref.iwate.jp/kensei/seisaku/jouhouka/1012070/index.html</td>
+            </tr>
+            <tr>
+                <td>40002</td>
+                <td>宮城県</td>
+                <td>http://www.pref.miyagi.jp/site/opendata-miyagi/</td>
+            </tr>
+            <tr>
+                <td>50008</td>
+                <td>秋田県</td>
+                <td>https://www.pref.akita.lg.jp/pages/archive/32419</td>
+            </tr>
+            <tr>
+                <td>60003</td>
+                <td>山形県</td>
+                <td>http://www.pref.yamagata.jp/ou/kikakushinko/020051/opendata.html</td>
+            </tr>
+            <tr>
+                <td>70009</td>
+                <td>福島県</td>
+                <td>https://www.pref.fukushima.lg.jp/sec/11045a/open-data-top.html</td>
+            </tr>
+            <tr>
+                <td>80004</td>
+                <td>茨城県</td>
+                <td>http://www.pref.ibaraki.jp/kikaku/joho/it/opendata/od-00.html</td>
+            </tr>
+            <tr>
+                <td>90000</td>
+                <td>栃木県</td>
+                <td>http://tochigiken.jp/</td>
+            </tr>
+            <tr>
+                <td>100005</td>
+                <td>群馬県</td>
+                <td>https://www.pref.gunma.jp/07/b2700057.html</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>file()関数のフラグ</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>設定値</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>FILE_USE_INCLUDE_PATH</m-b></td>
+                <td>include_pathパラメータからファイルを検索</td>
+            </tr>
+            <tr>
+                <td><m-b>FILE_IGNORE_NEW_LINES</m-b></td>
+                <td>配列の要素末尾に改行を追加しない</td>
+            </tr>
+            <tr>
+                <td><m-b>FILE_SKIP_EMPTY_LINES</m-b></td>
+                <td>空行を読み飛ばす</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>文字列としてファイルを読み込む</h3>
+    <p>
+        文字列としてファイルを読み込みたい場合、<m-b>file_get_contents()</m-b>関数を使用できる。
+    </p>
+
+    <h3>ファイルシステム関数の設定パラメータ</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>パラメータ</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>allow_url_fopen</m-b></td>
+                <td>
+                    fopen()関数でネットワーク上のファイル読み込みを許可するかどうか<br>
+                    規定値は<m-b>On</m-b>。
+                </td>
+            </tr>
+            <tr>
+                <td><m-b>open_basedir</m-b></td>
+                <td>
+                    スクリプトからアクセスできるディレクトリを指定する<br>
+                    指定する場合、これ以外のディレクトリにはアクセスできなくなる。
+                    複数指定する場合、Windows環境では<m-b>セミコロン</m-b>、Unix環境では<m-b>コロン</m-b>でパスを区切る。
+                </td>
+            </tr>
+            <tr>
+                <td><m-b>include_path</m-b></td>
+                <td>
+                    ファイルの検索先を指定する<br>
+                    <m-b>セミコロン</m-b>等で複数指定ができる。
+                    複数指定する場合、最初に<m-b>カレントディレクトリ</m-b>を検索し、その次に区切られたパスを先頭から順に検索する。<br>
+                    fopen()関数でこのパラメータを有効にする場合、第3引数に<m-b>true</m-b>を指定する必要がある。
+                    デフォルトでは<m-b>false</m-b>となっている。
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
 </body>

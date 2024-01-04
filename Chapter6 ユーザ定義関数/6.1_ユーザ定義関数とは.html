@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>6.1_ユーザ定義関数とは</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>6.1_ユーザ定義関数とは</h2>
+
+    <h3>ユーザ定義関数の構文</h3>
+    <pre><code>
+<m-b>function</m-b> 関数名(仮引数, ...) {
+    // 任意の処理
+    return 戻り値;
+}
+    </code></pre>
+
+    <h3>仮引数と実引数</h3>
+    <ul>
+        <li><m-b>実引数</m-b>: 呼び出し元から渡される値</li>
+        <li><m-b>仮引数</m-b>: 受け取り側の変数</li>
+    </ul>
+
+    <h3>空の戻り値</h3>
+    <pre><code>
+function hoge() {
+    return;
+}
+var_dump(hoge());
+    </code></pre>
+    <pre><code>
+<m-b>NULL</m-b>
+    </code></pre>
+
+    <h3>引数/戻り値の型宣言</h3>
+    <pre><code>
+&lt;?php
+function area<m-b>(float $base, float $height): float</m-b> {
+    return $base * $height / 2;
+}
+$res = area(4.0, 3.0);
+print "底辺4、高さ3の三角形の面積は{$res}です。"
+    </code></pre>
+
+    <h3>型宣言に利用できる型</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>型</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>bool</m-b></td>
+                <td>真偽値</td>
+            </tr>
+            <tr>
+                <td><m-b>float</m-b></td>
+                <td>浮動小数点数</td>
+            </tr>
+            <tr>
+                <td><m-b>int</m-b></td>
+                <td>整数</td>
+            </tr>
+            <tr>
+                <td><m-b>string</m-b></td>
+                <td>文字列</td>
+            </tr>
+            <tr>
+                <td><m-b>array</m-b></td>
+                <td>配列</td>
+            </tr>
+            <tr>
+                <td><m-b>iterable</m-b></td>
+                <td>配列/Traversal型(foreach文で利用できる型)</td>
+            </tr>
+            <tr>
+                <td><m-b>callable</m-b></td>
+                <td>コールバック関数</td>
+            </tr>
+            <tr>
+                <td><m-b>object</m-b></td>
+                <td>任意のオブジェクト</td>
+            </tr>
+            <tr>
+                <td><m-b>クラス/インターフェイス名</m-b></td>
+                <td>指定のクラス/インターフェイス</td>
+            </tr>
+            <tr>
+                <td><m-b>mixed</m-b></td>
+                <td>任意の型</td>
+            </tr>
+            <tr>
+                <td><m-b>*void</m-b></td>
+                <td>何も返さない</td>
+            </tr>
+            <tr>
+                <td><m-b>self</m-b></td>
+                <td>現在のクラス(メソッド内でのみ使用可能)</td>
+            </tr>
+            <tr>
+                <td><m-b>*static</m-b></td>
+                <td>最初に呼び出したクラス(遅延静的束縛)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>厳密な型制御</h3>
+    <p>
+        <m-b>declare()</m-b>命令を使用することで、スクリプトの処理方法を指定することができる。
+        厳密な型制御を有効にする場合、次の処理を行う。
+    </p>
+    <pre><code>
+<m-b>declare(strict_types=1);</m-b>
+    </code></pre>
+
+    <h3>null許容型</h3>
+    <pre><code>
+&lt;?php
+function hoge(<m-b>?int</m-b> $val) : void {
+    var_dump($val);
+}
+hoge(100);  // int(100)
+hoge(null); // NULL
+hoge();     // エラー
+    </code></pre>
+
+    <h3>Union型</h3>
+    <pre><code>
+&lt;?php
+function func<m-b>(string|float $fuga, int|array $piyo) : bool|object|null</m-b> {
+    var_dump($fuga);
+    var_dump($piyo);
+    return null;
+}
+    </code></pre>
+
+    <h3>false疑似型</h3>
+    <pre><code>
+&lt;?php
+function func2() : <m-b>int|false</m-b> {
+    return false;
+}
+    </code></pre>
+
+    <h3>スクリプトの外部呼出し</h3>
+    <ul>
+        <li><m-b>require</m-b>命令: 指定したファイルが存在しない場合にエラー</li>
+        <li><m-b>include</m-b>命令: 指定したファイルが存在しない場合にワーニング</li>
+        <li><m-b>require_once</m-b>命令: 指定したファイルが存在しない場合にエラー、ファイルが読み込み済みの場合にスキップする</li>
+        <li><m-b>include_once</m-b>命令: 指定したファイルが存在しない場合にワーニング、ファイルが読み込み済みの場合にスキップする</li>
+    </ul>
+
+    <h3>関数定義のタイミング</h3>
+    <pre><code>
+&lt;?php
+$br = '&lt;br>';
+var_dump(function_exists('f1'));
+var_dump(function_exists('f2'));
+var_dump(function_exists('f3'));
+function f1() : void {
+    function f2() : void {
+    }
+}
+if (true) {
+    function f3() {
+    }
+}
+print $br;
+var_dump(function_exists('f1'));
+var_dump(function_exists('f2'));
+var_dump(function_exists('f3'));
+f1();
+print $br;
+var_dump(function_exists('f1'));
+var_dump(function_exists('f2'));
+var_dump(function_exists('f3'));
+    </code></pre>
+    <code><pre>
+<m-b>bool(true) bool(false) bool(false)</m-b>
+<m-b>bool(true) bool(false) bool(true)</m-b>
+<m-b>bool(true) bool(true) bool(true)</m-b>
+    </pre></code>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

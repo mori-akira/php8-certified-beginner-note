@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>7.2_DateTimeクラス</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>7.2_DateTimeクラス</h2>
+
+    <h3>現在日時から生成</h3>
+    <pre><code>
+&lt;?php
+$now = new DateTime();
+print $now->format('Y年m月d日 H時i分s秒');
+    </code></pre>
+    <pre><code>
+<m-b>2024年01月04日 08時23分45秒</m-b>
+    </code></pre>
+
+    <h3>文字列から生成</h3>
+    <pre><code>
+&lt;?php
+$print_date = fn($dt) => print $dt->format('Y/m/d H:i:s') . '&lt;br>';
+$print_date(new DateTime('2023/01/01 12:00:00'));
+$print_date(new DateTime('11-11-11 11:11'));
+$print_date(new DateTime('last Sunday'));
+$print_date(new DateTime('+1 months 2weeks 3day 4hours'));
+    </code></pre>
+    <pre><code>
+<m-b>2023/01/01 12:00:00</m-b>
+<m-b>2011/11/11 11:11:00</m-b>
+<m-b>2023/12/31 00:00:00</m-b>
+<m-b>2024/02/21 12:36:20</m-b>
+    </code></pre>
+
+    <h3>タイムゾーンを指定</h3>
+    <pre><code>
+&lt;?php
+$print_date = fn($dt) => print $dt->format('Y/m/d H:i:s') . '&lt;br>';
+$print_date(new DateTime(null, new DateTimeZone('UTC')));
+$print_date(new DateTime(null, new DateTimeZone('Asia/Tokyo')));
+    </code></pre>
+    <pre><code>
+<m-b>2024/01/04 07:40:09</m-b>
+<m-b>2024/01/04 16:40:09</m-b>
+    </code></pre>
+
+    <h3>日付/時刻を設定する</h3>
+    <pre><code>
+&lt;?php
+$print_date = fn($dt) => print $dt->format('Y/m/d H:i:s') . '&lt;br>';
+$dt = new DateTime();
+$print_date($dt->setDate(1996, 4, 15));
+$print_date($dt->setTime(6, 30, 15));
+    </code></pre>
+    <pre><code>
+<m-b>1996/04/15 08:43:31</m-b>
+<m-b>1996/04/15 06:30:15</m-b>
+<m-b>1996/04/15 06:30:15</m-b>
+    </code></pre>
+
+    <h3>現在のUnixタイムスタンプ値を設定する</h3>
+    <pre><code>
+&lt;?php
+$dt = new DateTime();
+$dt-><m-b>setTimestamp(time())</m-b>;
+    </code></pre>
+
+    <h3>書式文字列で利用可能な主な記述子</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>記述子</th>
+                <th>説明</th>
+                <th>値</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>a</m-b></td>
+                <td>午前/午後</td>
+                <td><m-b>am/pm</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>A</m-b></td>
+                <td>午前/午後</td>
+                <td><m-b>AM/PM</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>d</m-b></td>
+                <td>日</td>
+                <td><m-b>01~31</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>j</m-b></td>
+                <td>日</td>
+                <td><m-b>1~31</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>D</m-b></td>
+                <td>曜日(省略形)</td>
+                <td><m-b>Mon~Sun</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>I</m-b></td>
+                <td>曜日(長い形式)</td>
+                <td><m-b>Monday~Sunday</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>m</m-b></td>
+                <td>月</td>
+                <td><m-b>01~12</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>n</m-b></td>
+                <td>月</td>
+                <td><m-b>1~12</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>F</m-b></td>
+                <td>月(長い形式)</td>
+                <td><m-b>January~December</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>h</m-b></td>
+                <td>時(12時間単位)</td>
+                <td><m-b>01~12</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>H</m-b></td>
+                <td>時(24時間単位)</td>
+                <td><m-b>00~23</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>g</m-b></td>
+                <td>時(12時間単位)</td>
+                <td><m-b>1~12</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>G</m-b></td>
+                <td>時(24時間単位)</td>
+                <td><m-b>0~23</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>i</m-b></td>
+                <td>分</td>
+                <td><m-b>00~59</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>L</m-b></td>
+                <td>閏年であるか</td>
+                <td><m-b>0/1</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>s</m-b></td>
+                <td>秒</td>
+                <td><m-b>00~59</m-b></td>
+            </tr>
+            <tr>
+                <td><m-b>T</m-b></td>
+                <td>タイムゾーン</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td><m-b>v</m-b></td>
+                <td>ミリ秒</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td><m-b>Y</m-b></td>
+                <td>年(4桁)</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td><m-b>y</m-b></td>
+                <td>年(2桁)</td>
+                <td>-</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>書式文字列で使用できる、主なDateTimeクラス定数</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>定数</th>
+                <th>書式文字列</th>
+                <th>例</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>ATOM</m-b></td>
+                <td>Y-m-d\TH:i:sP</td>
+                <td>2021-06-25T14:35:59+09:00</td>
+            </tr>
+            <tr>
+                <td><m-b>COOKIE</m-b></td>
+                <td>I, d-M-Y H:i:s T</td>
+                <td>Friday, 25-Jun-2021 14:35:59 JST</td>
+            </tr>
+            <tr>
+                <td><m-b>RFC822</m-b></td>
+                <td>D, d M y H:i:s O</td>
+                <td>Fri, 25 Jun 21 14:35:59+0900</td>
+            </tr>
+            <tr>
+                <td><m-b>RFC850</m-b></td>
+                <td>I, d-m-y H:i:s T</td>
+                <td>Friday, 25-Jun-21 14:35:59 JST</td>
+            </tr>
+            <tr>
+                <td><m-b>RSS</m-b></td>
+                <td>D, d M Y H:i:s O</td>
+                <td>Fri, 25 Jun 2021 14:35:59+0900</td>
+            </tr>
+            <tr>
+                <td><m-b>W3C</m-b></td>
+                <td>Y-m-d\TH:i:sP</td>
+                <td>2021-06-25T14:35:59+09:00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>文字列から日時を解析する</h3>
+    <pre><code>
+&lt;?php
+$fmt = 'Y年m月d日 H時i分s秒';
+$tar = '2023年12月31日 14時31分50秒';
+$dt = <m-b>DateTime::createFromFormat($fmt, $tar)</m-b>;
+print $dt->format(DateTime::ATOM);
+    </code></pre>
+
+    <h3>日付/時刻の加算/減算</h3>
+    <pre><code>
+&lt;?php
+$dt = new DateTime('2023-10-15 12:30:00');
+// 加算
+print $dt-><m-b>add</m-b>(new DateInterval('P1Y'))->format(DateTime::ATOM); // 結果 2024-10-15 12:30:00
+// 減算
+print $dt-><m-b>sub</m-b>(new DateInterval('PT1H'))->format(DateTime::ATOM); // 結果 2024-10-14 12:30:00
+    </code></pre>
+
+    <h3>DateIntervalクラスのフォーマット</h3>
+    <pre><code>
+<m-b>P</m-b>[日付間隔]<m-b>T</m-b>[時間間隔]
+    </code></pre>
+    <p>
+        ※区切り文字の<m-b>T</m-b>は省略可能
+    </p>
+    <h4>日付/時刻間隔の単位</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>単位</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>Y</m-b></td>
+                <td>年</td>
+            </tr>
+            <tr>
+                <td><m-b>M</m-b></td>
+                <td>月</td>
+            </tr>
+            <tr>
+                <td><m-b>D</m-b></td>
+                <td>日</td>
+            </tr>
+            <tr>
+                <td><m-b>W</m-b></td>
+                <td>週(日と併用不可)</td>
+            </tr>
+            <tr>
+                <td><m-b>H</m-b></td>
+                <td>時間</td>
+            </tr>
+            <tr>
+                <td><m-b>M</m-b></td>
+                <td>分</td>
+            </tr>
+            <tr>
+                <td><m-b>S</m-b></td>
+                <td>秒</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>日時の差分を取得する</h3>
+    <pre><code>
+&lt;?php
+$dt1 = new DateTime('2023-11-08 13:45:11');
+$dt2 = new DateTime('2022-04-17 04:12:49');
+print $dt1-><m-b>diff</m-b>($dt2, true)->format('%R%Y%M%D %H%I%S') . '&lt;br>';
+print $dt1-><m-b>diff</m-b>($dt2, false)->format('%r%y%m%d %h%i%s');
+    </code></pre>
+    <pre><code>
+<m-b>+010621 093222</m-b>
+<m-b>-1621 93222</m-b>
+    </code></pre>
+
+    <h3>DateIntervalのフォーマットの主な記述子</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>記述子</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>%Y、%y</m-b></td>
+                <td>年</td>
+            </tr>
+            <tr>
+                <td><m-b>%M,%m</m-b></td>
+                <td>月</td>
+            </tr>
+            <tr>
+                <td><m-b>%D、%d</m-b></td>
+                <td>日</td>
+            </tr>
+            <tr>
+                <td><m-b>%H、%h</m-b></td>
+                <td>時間</td>
+            </tr>
+            <tr>
+                <td><m-b>%I、%i</m-b></td>
+                <td>分</td>
+            </tr>
+            <tr>
+                <td><m-b>%S、%s</m-b></td>
+                <td>秒</td>
+            </tr>
+            <tr>
+                <td><m-b>%F、%f</m-b></td>
+                <td>マイクロ秒</td>
+            </tr>
+            <tr>
+                <td><m-b>%R、%r</m-b></td>
+                <td>正負記号(小文字は正数で空文字)</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        ※大文字/小文字の違いは、結果が1桁の場合に、大文字は<m-b>2桁</m-b>で出力、小文字は<m-b>1桁</m-b>で出力する点
+    </p>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>
