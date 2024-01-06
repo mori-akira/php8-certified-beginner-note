@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>10.5_トレイト</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>10.5_トレイト</h2>
+
+    <h3>インターフェイスとトレイトの併用</h3>
+    <pre><code>
+&lt;?php
+interface IFax
+{
+    function send();
+}
+interface IPrinter
+{
+    function print();
+}
+<m-b>trait</m-b> FaxTrait
+{
+    public function send()
+    {
+        print 'sending...';
+    }
+}
+<m-b>trait</m-b> PrinterTrait
+{
+    public function print()
+    {
+        print 'printing...';
+    }
+}
+class FaxPrinter implements IFax, IPrinter
+{
+    <m-b>use</m-b> FaxTrait, PrinterTrait;
+}
+    </code></pre>
+
+    <h3>トレイトによるアクセサメソッド</h3>
+    <pre><code>
+&lt;?php
+trait AccessorTrait
+{
+    function <m-b>__set</m-b>(string $name, mixed $value): void
+    {
+        if (<m-b>isset</m-b>($this->props[$name])) {
+            $this->props[$name] = $value;
+        } else {
+            throw new Exception("no props: {$name}");
+        }
+    }
+    function <m-b>__get</m-b>(string $name): mixed
+    {
+        if (<m-b>isset</m-b>($this->props[$name])) {
+            return $this->props[$name];
+        } else {
+            throw new Exception("no props: {$name}");
+        }
+    }
+}
+class Triangle
+{
+    <m-b>use AccessorTrait</m-b>;
+    private <m-b>$props = ['base' => 0, 'height' => 0]</m-b>;
+    function __construct(float $base, float $height)
+    {
+        $this->base = $base;
+        $this->height = $height;
+    }
+    function area()
+    {
+        return $this->base * $this->height / 2;
+    }
+}
+print (new Triangle(4, 7))->area();
+    </code></pre>
+
+    <h3>クラスとトレイトでメソッド名が競合する場合</h3>
+    <p>
+        次の順で優先度が設定されている。
+    </p>
+    <ol>
+        <li><m-b>現在クラス</m-b>のメンバ</li>
+        <li><m-b>トレイト</m-b>のメンバ</li>
+        <li><m-b>親クラス</m-b>のメンバ</li>
+    </ol>
+
+    <h3>トレイト同士でメソッド名が競合する場合</h3>
+    <p>
+        トレイト同士でメソッド名が競合する場合、<m-b>Fatal error</m-b>が発生する。
+        ただし、次の方法で回避することも可能である。
+    </p>
+
+    <h4>明示的に使用するメンバを指定</h4>
+    <pre><code>
+class MyClass {
+    use MyTrait1, MyTrait2 {
+        MyTrait1::hoge <m-b>insteadOf</m-b> MyTrait2;
+    }
+}
+    </code></pre>
+
+    <h4>別名を付与</h4>
+    <pre><code>
+class MyClass {
+    use MyTrait1, MyTrait2 {
+        MyTrait1::hoge <m-b>insteadOf</m-b> MyTrait2;
+        MyTrait2::hoge <m-b>as</m-b> fuga;
+    }
+}
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

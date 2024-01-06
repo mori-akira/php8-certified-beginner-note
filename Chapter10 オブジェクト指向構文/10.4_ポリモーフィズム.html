@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>10.4_ポリモーフィズム</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>10.4_ポリモーフィズム</h2>
+
+    <h3>抽象メソッド</h3>
+    <pre><code>
+&lt;?php
+<m-b>abstract class Worker</m-b>
+{
+    public function __construct(
+        private string $name
+    ) {
+    }
+    <m-b>protected abstract function greet(): void</m-b>;
+}
+class Teacher extends Worker
+{
+    public function __construct(
+        private string $name
+    ) {
+        parent::__construct($name);
+    }
+    public function greet(): void
+    {
+        print "こんにちは生徒の皆さん、{$this->name}と言います！&lt;br>";
+    }
+}
+class Programmer extends Worker
+{
+    public function __construct(
+        private string $name
+    ) {
+        parent::__construct($name);
+    }
+    public function greet(): void
+    {
+        print "あ、どうも、{$this->name}です。(ﾒｶﾞﾈｸｲ)&lt;br>";
+    }
+}
+(new Teacher('田中'))->greet();
+(new Programmer('斎藤'))->greet();
+    </code></pre>
+
+    <h3>インターフェイス</h3>
+    <pre><code>
+&lt;?php
+<m-b>interface</m-b> Greetable
+{
+    function greet(): void;
+}
+<m-b>interface</m-b> Introducable
+{
+    function introduce(): void;
+}
+class Student <m-b>implements</m-b> Greetable, Introducable
+{
+    function __construct(
+        private string $name,
+        private int $grade
+    ) {
+    }
+    function greet(): void
+    {
+        print "こんにちは！&lt;br>";
+    }
+    function introduce(): void
+    {
+        print "私の名前は{$this->name}です。{$this->grade}年生です。&lt;br>";
+    }
+}
+$student = new Student('中村', 4);
+$student->greet();
+$student->introduce();
+    </code></pre>
+
+    <h3>型の判定</h3>
+    <pre><code>
+変数 <m-b>instanceof</m-b> 型名
+    </code></pre>
+
+    <h3>無名クラス</h3>
+    <pre><code>
+&lt;?php
+interface Runnable {
+    function run();
+}
+class MyClass {
+    function execute(Runnable $ruunable) {
+        $ruunable->run();
+    }
+}
+(new MyClass())->execute(<m-b>new class implements Runnable</m-b> {
+    function run() {
+        print 'no named';
+    }
+});
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

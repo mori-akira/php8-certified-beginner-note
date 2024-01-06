@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>10.3_継承</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>10.3_継承</h2>
+
+    <h3>継承の構文</h3>
+    <pre><code>
+&lt;?php
+class Person
+{
+    public function __construct(
+        public string $sei,
+        public string $mei,
+        public int $age
+    ) {
+    }
+
+    public function __destruct()
+    {
+        print "{$this->toString()} was destroyed";
+    }
+
+    public function toString(): string
+    {
+        return "Person3(sei={$this->sei}, mei={$this->mei}, age={$this->age})";
+    }
+
+    public function introduce(): string
+    {
+        return "私の名前は{$this->sei} {$this->mei}です。{$this->age}歳です。";
+    }
+}
+
+class BuisinessPerson <m-b>extends</m-b> Person
+{
+
+    public function __construct(
+        public string $sei,
+        public string $mei,
+        public int $age,
+        public string $company
+    ) {
+        <m-b>parent::__construct</m-b>($sei, $mei, $age);
+    }
+
+    public function toString(): string
+    {
+        return <m-b>parent::toString</m-b>() . ' ' . "BuisinessPerson(company={$this->company})";
+    }
+}
+$kogure = new BuisinessPerson('木暮', '守晶', 27, 'KCCS');
+print $kogure->introduce() . '&lt;br>' . $kogure->toString();
+    </code></pre>
+    <pre><code>
+私の名前は木暮 守晶です。27歳です。
+Person3(sei=木暮, mei=守晶, age=27) BuisinessPerson(company=KCCS)
+Person3(sei=木暮, mei=守晶, age=27) BuisinessPerson(company=KCCS) was destroyed
+    </code></pre>
+
+    <h3>継承の禁止</h3>
+    <p>
+        メソッドに<m-b>final</m-b>修飾子を付与すると、子クラスでオーバーライドするときに<m-b>Fatal error</m-b>が発生するようになる。
+    </p>
+
+    <h3>静的遅延束縛</h3>
+    <pre><code>
+&lt;?php
+class Hoge
+{
+    public static function hoge()
+    {
+        return 'hoge';
+    }
+    public static function call()
+    {
+        print self::hoge() . static::hoge() . '&lt;br>';
+    }
+}
+class Fuga extends Hoge
+{
+    public static function hoge()
+    {
+        return 'fuga';
+    }
+}
+Hoge::call();
+Fuga::call();
+    </code></pre>
+    <pre><code>
+<m-b>hogehoge</m-b>
+<m-b>hogefuga</m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

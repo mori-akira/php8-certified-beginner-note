@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>10.6_オブジェクトの操作</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>10.6_オブジェクトの操作</h2>
+
+    <h3>オブジェクト同士の比較(同値性と同一性)</h3>
+    <pre><code>
+&lt;?php
+class MyClass
+{
+    function __construct(
+        private string $hoge,
+        private string $fuga
+    ) {
+    }
+}
+$cls1 = new MyClass('1', '1');
+$cls2 = $cls1;
+$cls3 = new MyClass('1', '1');
+
+var_dump($cls1 == $cls2);
+var_dump($cls1 === $cls2);
+var_dump($cls1 == $cls3);
+var_dump($cls1 === $cls3);
+    </code></pre>
+    <pre><code>
+<m-b>bool(true)</m-b><m-b>bool(true)</m-b><m-b>bool(true)</m-b><m-b>bool(false)</m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>
