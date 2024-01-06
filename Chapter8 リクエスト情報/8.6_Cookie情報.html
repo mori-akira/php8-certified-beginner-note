@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>8.6_Cookie情報</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>8.6_Cookie情報</h2>
+
+    <h3>Cookieの設定</h3>
+    <pre><code>
+&lt;?php
+<m-b>setcookie</m-b>('key1', 'val1');
+<m-b>setcookie</m-b>('key2', 'val2', time() + 60 * 60);
+<m-b>setcookie</m-b>('key3', 'val3', time() + 60 * 60 * 24, 'localhost');
+<m-b>setcookie</m-b>('key4', 'val4', time() + 60 * 60, 'localhost', '/selfphp/');
+<m-b>setcookie</m-b>('key5', 'val5', time() + 60 * 60, 'localhost', '/selfphp/', secure: true, httponly: true);
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

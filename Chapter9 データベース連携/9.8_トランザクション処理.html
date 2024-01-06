@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>9.8_トランザクション処理</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>9.8_トランザクション処理</h2>
+
+    <h3>トランザクション制御に関するメソッド</h3>
+    <ul>
+        <li>開始: <m-b>beginTransaction()</m-b></li>
+        <li>コミット: <m-b>commit()</m-b></li>
+        <li>ロールバック: <m-b>rollback()</m-b></li>
+    </ul>
+
+    <h3>その他の設定</h3>
+    <p>
+        エラーを例外として処理するために、<m-b>PDO::ATTR_ERRMODE</m-b>パラメータに<m-b>PDO::ERRMODE_EXCEPTION</m-b>を設定する。
+    </p>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

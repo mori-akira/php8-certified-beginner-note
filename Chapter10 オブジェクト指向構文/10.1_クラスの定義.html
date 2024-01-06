@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>10.1_クラスの定義</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>10.1_クラスの定義</h2>
+
+    <h3>クラスの定義</h3>
+    <pre><code>
+&lt;?php
+<m-b>class</m-b> Person
+{
+    <m-b>public string $sei;</m-b>
+    <m-b>public string $mei;</m-b>
+    <m-b>public int $age;</m-b>
+
+    <m-b>public function __construct</m-b>(string $sei, string $mei, int $age)
+    {
+        <m-b>$this->sei</m-b> = $sei;
+        <m-b>$this->mei</m-b> = $mei;
+        <m-b>$this->age</m-b> = $age;
+    }
+
+    public function getName() : string
+    {
+        return "<m-b>{$this->sei} {$this->mei}</m-b>";
+    }
+}
+
+$kogure = new Person('木暮', '守晶', 27);
+print $kogure->sei . ', ' . $kogure->mei . ', ' . $kogure->getName();
+    </code></pre>
+    <pre><code>
+木暮, 守晶, 木暮 守晶
+    </code></pre>
+
+    <h3>コンストラクタの省略構文</h3>
+    <pre><code>
+&lt;?php
+class Person2
+{
+    <m-b>public function __construct</m-b>(
+        <m-b>public string $sei</m-b>,
+        <m-b>public string $mei</m-b>,
+        <m-b>public int $age</m-b>
+    ) {
+    }
+
+    public function getName(): string
+    {
+        return "{$this->sei} {$this->mei}";
+    }
+}
+$kogure = new Person2('木暮', '守晶', 27);
+print $kogure->sei . ', ' . $kogure->mei . ', ' . $kogure->getName();
+    </code></pre>
+    <pre><code>
+木暮, 守晶, 木暮 守晶
+    </code></pre>
+
+    <h3>デストラクタ</h3>
+    <pre><code>
+&lt;?php
+class Person3
+{
+    public function __construct(
+        public string $sei,
+        public string $mei,
+        public int $age
+    ) {
+    }
+
+    <m-b>public function __destruct()</m-b>
+    {
+        print "&lt;p>{$this->toString()} was destroyed&lt;/p>";
+    }
+
+    public function toString(): string
+    {
+        return "Person3(sei={$this->sei}, mei={$this->mei}, age={$this->age})";
+    }
+}
+$kogure = new Person3('木暮', '守晶', 27);
+    </code></pre>
+    <pre><code>
+Person3(sei=木暮, mei=守晶, age=27) was destroyed
+    </code></pre>
+
+    <h3>静的メソッド・プロパティ</h3>
+    <pre><code>
+&lt;?php
+class Math {
+    <m-b>public static float</m-b> $pi = 3.141592;
+
+    <m-b>public static function</m-b> circleArea(float $radius): float
+    {
+        return pow($radius, 2) * self::$pi;
+    }
+}
+print Math::circleArea(3);
+    </code></pre>
+    <pre><code>
+28.274328
+    </code></pre>
+
+    <h3>クラス定数</h3>
+    <pre><code>
+&lt;?php
+class Math {
+    <m-b>public const</m-b> PI = 3.141592;
+}
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

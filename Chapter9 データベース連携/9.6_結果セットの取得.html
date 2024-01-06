@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>9.6_結果セットの取得</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>9.6_結果セットの取得</h2>
+
+    <h3>結果セットの取得</h3>
+    <pre><code>
+&lt;table>
+    &lt;thead>
+        &lt;tr>
+            &lt;th>社員ID&lt;/th>
+            &lt;th>部署ID&lt;/th>
+            &lt;th>名前&lt;/th>
+            &lt;th>年齢&lt;/th>
+        &lt;/tr>
+    &lt;/thead>
+    &lt;tbody>
+        &lt;?php
+        $uri = 'mysql:dbname=selfphp; host=127.0.0.1; charset=utf8';
+        $usr = 'selfphp';
+        $pwd = 'selfphp';
+        
+        try {
+            $db = new PDO($uri, $usr, $pwd);
+            $rs = $db-><m-b>query</m-b>('select * from employee;');
+            while ($row = $rs-><m-b>fetch(PDO::FETCH_ASSOC)</m-b>) {
+        ?>
+            &lt;tr>
+                &lt;td>&lt;?= <m-b>htmlspecialchars</m-b>($row['employee_id']) ?>&lt;/td>
+                &lt;td>&lt;?= <m-b>htmlspecialchars</m-b>($row['department_id']) ?>&lt;/td>
+                &lt;td>&lt;?= <m-b>htmlspecialchars</m-b>($row['name']) ?>&lt;/td>
+                &lt;td>&lt;?= <m-b>htmlspecialchars</m-b>($row['age']) ?>&lt;/td>
+            &lt;/tr>
+        &lt;?php
+            }
+        } catch(PDOException $ex) {
+        } finally {
+            $db = null;
+        }
+        ?>
+    &lt;/tbody>
+&lt;/table>
+    </code></pre>
+    <p>
+        ※結果セットは、<m-b>foreach</m-b>でも処理できる。
+    </p>
+
+    <h3>主なフェッチモード</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>定数</th>
+                <th>取得形式</th>
+                <th>値の取得例</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>PDO::FETCH_ASSOC</m-b></td>
+                <td>連想配列</td>
+                <td>$row['name']</td>
+            </tr>
+            <tr>
+                <td><m-b>PDO::FETCH_NUM</m-b></td>
+                <td>一般配列</td>
+                <td>$row[0]</td>
+            </tr>
+            <tr>
+                <td><m-b>PDO::FETCH_BOTH</m-b></td>
+                <td>連想配列/一般配列</td>
+                <td>$row['name']/$row[0]</td>
+            </tr>
+            <tr>
+                <td><m-b>PDO::FETCH_NAMED</m-b></td>
+                <td>連想配列</td>
+                <td>$row['name']</td>
+            </tr>
+            <tr>
+                <td><m-b>PDO::FETCH_OBJ</m-b></td>
+                <td>オブジェクト</td>
+                <td>$row->name</td>
+            </tr>
+            <tr>
+                <td><m-b>PDO::FETCH_COLUMN</m-b></td>
+                <td>スカラー値(先頭列の値)</td>
+                <td>$row</td>
+            </tr>
+            <tr>
+                <td><m-b>PDO::FETCH_BOUND</m-b></td>
+                <td>bindColumnメソッドでバインドされたPHP変数</td>
+                <td>$変数</td>
+            </tr>
+            <tr>
+                <td><m-b>PDO::FETCH_CLASS</m-b></td>
+                <td>指定されたクラスにフェッチ</td>
+                <td>$クラス変数->カラム名</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>主なフェッチメソッド</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>メソッド</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>fetchAll()</m-b></td>
+                <td>
+                    配列で全件取得するメソッド<br>
+                    fetch()メソッドと同じくフェッチモードを指定できる。
+                </td>
+            </tr>
+            <tr>
+                <td><m-b>fetchColumn()</m-b></td>
+                <td>
+                    カラムインデックスを指定して、値を取得するメソッド<br>
+                    基本的には取得結果が1列の場合に使用する。
+                </td>
+            </tr>
+            <tr>
+                <td><m-b>fetchObject()</m-b></td>
+                <td>
+                    第1引数$class_nameで指定したクラスオブジェクトとして結果を取得するメソッド
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>フェッチモードFETCH_ASSOCとFETCH_NAMEDの違い</h3>
+    <p>
+        共にレコードを連想配列で取得するフェッチモードだが、フィールド名が重複する場合に、<br>
+        <m-b>FETCH_ASSOC</m-b>は後のフィールドが上書きし、<br>
+        <m-b>FETCH_NAMED</m-b>は入れ子の配列としてすべての値を保持する、<br>
+        という違いがある。
+    </p>
+
+    <h3>フェッチモードFETCH_UNIQUEとFETCH_GROUP</h3>
+    <p>
+        どちらも、<m-b>fetchAll()</m-b>メソッドにフェッチモード<m-b>FETCH_COLUMN</m-b>を指定する場合に併用できるフェッチモードである。<br>
+        取得する2カラムのうち、1カラム目の値が重複する場合に、<br>
+        <m-b>FETCH_UNIQUE</m-b>は重複を排除して「1カラム目=>2カラム目」の連想配列を、<br>
+        <m-b>FETCH_GROUP</m-b>はグルーピングを行って「1カラム目=>[2カラム目(1), 2カラム目(2), ...]」という連想配列を<br>
+        返却する。
+    </p>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>8.5_サーバ環境変数</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>8.5_サーバ環境変数</h2>
+
+    <h3>環境変数を表示</h3>
+    <pre><code>
+&lt;?php
+print <m-b>$_ENV</m-b>['JAVA_HOME'];
+    </code></pre>
+
+    <h3>環境変数を有効にする設定(php.ini)</h3>
+    <pre><code>
+<m-b>variables_order</m-b> = <m-b>EGPCS</m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

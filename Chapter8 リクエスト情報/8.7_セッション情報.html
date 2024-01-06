@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>8.7_セッション情報</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>8.7_セッション情報</h2>
+
+    <h3>セッションを開始する</h3>
+    <pre><code>
+&lt;?php
+<m-b>session_start()</m-b>;
+    </code></pre>
+
+    <h3>セッションに情報を保存する</h3>
+    <pre><code>
+&lt;?php
+<m-b>$_SESSION</m-b>['hoge'] = 'value';
+    </code></pre>
+
+    <h3>セッションIDを再作成</h3>
+    <pre><code>
+&lt;?php
+<m-b>session_regenerate(true)</m-b>;
+    </code></pre>
+
+    <h3>セッションのキー、IDを取得</h3>
+    <pre><code>
+&lt;?php
+print <m-b>session_name()</m-b> . ': ' . <m-b>session_id()</m-b>;
+    </code></pre>
+    <pre><code>
+<m-b>PHPSESSID</m-b>: mo5dvvq41gfo1p5e51s2uop17r
+    </code></pre>
+
+    <h3>セッションを破棄</h3>
+    <pre><code>
+&lt;?php
+<m-b>session_destroy()</m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

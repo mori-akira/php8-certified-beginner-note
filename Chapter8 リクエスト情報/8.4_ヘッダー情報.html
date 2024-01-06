@@ -101,6 +101,27 @@
     </table>
 
     <h3>レスポンスヘッダーを設定する</h3>
+    <pre><code>
+&lt;?php
+<m-b>header</m-b>('Content-Type', 'application/json');
+    </code></pre>
+
+    <h3>Basic認証を行う</h3>
+    <pre><code>
+&lt;?php
+if (!isset(<m-b>$_SERVER['PHP_AUTH_USER']</m-b>)) {
+    header('HTTP/1.1 401 Unauthorized');
+    header('WWW-Authenticate: Basic realm="SelfPHP');
+    print 'unauthorized';
+    die();
+} else {
+    if ('hoge' === <m-b>$_SERVER['PHP_AUTH_USER']</m-b> && 'fuga' === <m-b>$_SERVER['PHP_AUTH_PW']</m-b>) {
+        print 'authorized';
+    } else {
+        print 'failed';
+    }
+}
+    </code></pre>
 
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>

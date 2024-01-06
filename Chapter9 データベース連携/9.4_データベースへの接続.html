@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>9.4_データベースへの接続</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>9.4_データベースへの接続</h2>
+
+    <h3>データベースへ接続</h3>
+    <pre><code>
+&lt;?php
+try {
+    $usr = 'selfphp';
+    $pwd = 'selfphp';
+    $db = new <m-b>PDO</m-b>('mysql:dbname=selfphp; host=127.0.0.1; charset=utf8', $usr, $pwd);
+    print 'Success';
+} catch (<m-b>PDOException</m-b> $ex) {
+    die("Connection Error: {$ex->getMessage()}");
+} finally {
+    <m-b>$db = null</m-b>;
+}
+    </code></pre>
+
+    <h3>接続パラメータ</h3>
+
+    <h4>エラー発生時の処理</h4>
+    <p>
+        <m-b>PDO::ATTR_ERRORMODE</m-b>に次を指定する。
+    </p>
+    <ul>
+        <li><m-b>PDO::ERRMODE_SILENT</m-b>: エラーコードを設定するのみ</li>
+        <li><m-b>PDO::ERRMODE_WARNING</m-b>: 警告を発生</li>
+        <li><m-b>PDO::ERRMODE_EXCEPTION</m-b>: 例外を発生</li>
+    </ul>
+    <pre><code>
+&lt;?php
+try {
+    $db = new PDO('mysql:dbname=selfphp; host=127.0.0.1; charset=utf8', 'selfphp', 'selfphp');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+    $db->exec('hoge;');
+    print $db-><m-b>errorCode()</m-b> . '&lt;br>';
+    print_r($db-><m-b>errorInfo()</m-b>);
+} catch (PDOException $ex) {
+    die("Connection Error: {$ex->getMessage()}");
+} finally {
+    $db = null;
+}
+    </code></pre>
+    <pre><code>
+42000
+Array ( [0] => 42000 [1] => 1064 [2] => You have an error... )
+    </code></pre>
+
+    <h4>大文字/小文字設定</h4>
+    <p>
+        <m-b>PDO::ATTR_CASE</m-b>に次を設定する。
+    </p>
+    <ul>
+        <li><m-b>PDO::CASE_UPPER</m-b>: 取得するフィールド名を大文字にする</li>
+        <li><m-b>PDO::CASE_LOWER</m-b>: 取得するフィールド名を小文字にする</li>
+        <li><m-b>PDO::CASE_NATURAL</m-b>: 取得するフィールド名をそのままにする</li>
+    </ul>
+
+    <h4>持続的接続</h4>
+    <p>
+        <m-b>PDO::ATTR_PERSISTENT</m-b>に<m-b>true</m-b>を設定すると、持続的接続を使用できる。
+        持続的接続は、既に作成済みのコネクションを再利用する機能で、コネクション確立のオーバーヘッドを軽減することができる。
+        持続的接続を有効にするには、<m-b>インスタンス作成</m-b>のタイミングで指定する。
+    </p>
+    <pre><code>
+$db = new PDO($uri, $usr, &pwd, <m-b>[PDO::ATTR_PERSISTENT => true]</m-b>);
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

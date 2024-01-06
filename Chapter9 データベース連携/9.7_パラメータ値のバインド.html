@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>9.7_パラメータ値のバインド</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>9.7_パラメータ値のバインド</h2>
+
+    <h3>型を指定するバインド</h3>
+    <pre><code>
+$prd->bindValue(':type', $type, <m-b>POD::PARAM_STR</m-b>); // 文字列でバインド
+$prd->bindValue(':data', $file, <m-b>POD::LOB</m-b>); // ラージバイナリオブジェクトでバインド
+    </code></pre>
+
+    <h3>bindValue()とbindParam()の違い</h3>
+    <p>
+        <m-b>bindValue()</m-b>は呼び出し時の値をバインドするのに対し、<br>
+        <m-b>bindParam()</m-b>は呼び出し時の変数の参照をバインドし、execute()が呼び出されたタイミングで評価される。
+    </p>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

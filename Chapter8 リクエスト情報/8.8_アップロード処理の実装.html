@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>8.8_アップロード処理の実装</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>8.8_アップロード処理の実装</h2>
+
+    <h3>ファイル情報にアクセス</h3>
+    <pre><code>
+&lt;?php
+<m-b>$_FILES</m-b>['要素名']['情報名'];
+    </code></pre>
+    <p>
+        ※「要素名」は、ファイル選択に使用した<m-b>input</m-b>要素の<m-b>name</m-b>属性に指定した値。
+    </p>
+
+    <h3>ファイルのスーパーグローバル変数から取得可能な情報</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>情報名</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tobyd>
+            <tr>
+                <td><m-b>name</m-b></td>
+                <td>オリジナルのファイル名</td>
+            </tr>
+            <tr>
+                <td><m-b>type</m-b></td>
+                <td>コンテンツタイプ</td>
+            </tr>
+            <tr>
+                <td><m-b>size</m-b></td>
+                <td>コンテンツサイズ(バイト)</td>
+            </tr>
+            <tr>
+                <td><m-b>tmp_name</m-b></td>
+                <td>サーバ上の一時ファイル名</td>
+            </tr>
+            <tr>
+                <td><m-b>error</m-b></td>
+                <td>エラーコード</td>
+            </tr>
+        </tobyd>
+    </table>
+
+    <h3>主なエラーコード</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>エラーコード</th>
+                <th>値</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>UPLOAD_ERR_OK</m-b></td>
+                <td>0</td>
+                <td>アップロード成功</td>
+            </tr>
+            <tr>
+                <td><m-b>UPLOAD_ERR_INI_SIZE</m-b></td>
+                <td>1</td>
+                <td>upload_max_filesizeパラメータで指定したサイズを超過</td>
+            </tr>
+            <tr>
+                <td><m-b>UPLOAD_ERR_FORM_SIZE</m-b></td>
+                <td>2</td>
+                <td>HTMLフォームで指定したサイズを超過</td>
+            </tr>
+            <tr>
+                <td><m-b>UPLOAD_ERR_PARTIAL</m-b></td>
+                <td>3</td>
+                <td>ファイルが途中で切れいている</td>
+            </tr>
+            <tr>
+                <td><m-b>UPLOAD_ERR_NO_FILE</m-b></td>
+                <td>4</td>
+                <td>ファイルが存在しない</td>
+            </tr>
+            <tr>
+                <td><m-b>UPLOAD_ERR_NO_TMP_DIR</m-b></td>
+                <td>6</td>
+                <td>一時保存のためのフォルダが存在しない</td>
+            </tr>
+            <tr>
+                <td><m-b>UPLOAD_ERR_CANT_WRITE</m-b></td>
+                <td>7</td>
+                <td>ディスクへの書き込みに失敗した</td>
+            </tr>
+            <tr>
+                <td><m-b>UPLOAD_ERR_EXTENSION</m-b></td>
+                <td>8</td>
+                <td>拡張モジュールによってアップロードが中断された</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>アップロード関連の設定パラメータ</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>パラメータ</th>
+                <th>デフォルト値</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>file_uploads</m-b></td>
+                <td>1</td>
+                <td>アップロードを有効にするか</td>
+            </tr>
+            <tr>
+                <td><m-b>max_file_uploads</m-b></td>
+                <td>20</td>
+                <td>同時にアップロードできる最大数</td>
+            </tr>
+            <tr>
+                <td><m-b>upload_max_filesize</m-b></td>
+                <td>2M</td>
+                <td>アップロード可能な最大サイズ</td>
+            </tr>
+            <tr>
+                <td><m-b>upload_tmp_dir</m-b></td>
+                <td>"C:\xampp\tmp"(xamppの場合)</td>
+                <td>アップロードファイルの一時ディレクトリパス</td>
+            </tr>
+            <tr>
+                <td><m-b>memory_limit</m-b></td>
+                <td>128MB</td>
+                <td>利用可能なメモリサイズ</td>
+            </tr>
+            <tr>
+                <td><m-b>max_execution_time</m-b></td>
+                <td>30</td>
+                <td>スクリプトの最大実行時間(秒)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>9.5_SQLクエリの発行</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>9.5_SQLクエリの発行</h2>
+
+    <h3>プリペアド文</h3>
+    <pre><code>
+&lt;?php
+$uri = 'mysql:dbname=selfphp; host=127.0.0.1; charset=utf8';
+$usr = 'selfphp';
+$pwd = 'selfphp';
+
+try {
+    $db = new PDO($uri, $usr, $pwd);
+    $prd = $db-><m-b>prepare</m-b>('insert into employee values(:employee_id, :department_id, :name, :age);');
+    $prd-><m-b>bindValue</m-b>(':employee_id', '5');
+    $prd-><m-b>bindValue</m-b>(':department_id', '3');
+    $prd-><m-b>bindValue</m-b>(':name', '木暮 守晶');
+    $prd-><m-b>bindValue</m-b>(':age', 27);
+    $prd-><m-b>execute</m-b>();
+} catch(PDOException $ex) { 
+} finally {
+    $db = null;
+}
+    </code></pre>
+
+    <h3>名前なしパラメータ</h3>
+    <pre><code>
+&lt;?php
+$uri = 'mysql:dbname=selfphp; host=127.0.0.1; charset=utf8';
+$usr = 'selfphp';
+$pwd = 'selfphp';
+
+try {
+    $db = new PDO($uri, $usr, $pwd);
+    $prd = $db->prepare('insert into employee values(<m-b>?, ?, ?, ?</m-b>);');
+    $prd->bindValue(<m-b>1</m-b>, 6);
+    $prd->bindValue(<m-b>2</m-b>, 3);
+    $prd->bindValue(<m-b>3</m-b>, '鈴木 祥吾');
+    $prd->bindValue(<m-b>4</m-b>, 27);
+    $prd->execute();
+} catch(PDOException $ex) { 
+} finally {
+    $db = null;
+}
+    </code></pre>
+
+    <h3>オートインクリメント値の取得</h3>
+    <pre><code>
+&lt;?php
+$uri = 'mysql:dbname=selfphp; host=127.0.0.1; charset=utf8';
+$usr = 'selfphp';
+$pwd = 'selfphp';
+
+try {
+    $db = new PDO($uri, $usr, $pwd);
+    $prd = $db->prepare('insert into employee(department_id, name, age) values(?, ?, ?);');
+    $prd->bindValue(1, 4);
+    $prd->bindValue(2, '花井 北斗');
+    $prd->bindValue(3, 27);
+    $prd->execute();
+    print $db-><m-b>lastInsertId</m-b>();
+} catch(PDOException $ex) {
+} finally {
+    $db = null;
+}
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>
