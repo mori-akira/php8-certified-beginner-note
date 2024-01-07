@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>10.8_マジックメソッド</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>10.8_マジックメソッド</h2>
+
+    <h3>主なマジックメソッド</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>メソッド</th>
+                <th>呼び出しタイミング</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>__get</m-b></td>
+                <td>未定義のプロパティを取得しようとしたとき</td>
+            </tr>
+            <tr>
+                <td><m-b>__set</m-b></td>
+                <td>未定義のプロパティを設定しようとしたとき</td>
+            </tr>
+            <tr>
+                <td><m-b>__isset</m-b></td>
+                <td>未定義のプロパティをisset関数で処理しようとしたとき</td>
+            </tr>
+            <tr>
+                <td><m-b>__unset</m-b></td>
+                <td>未定義のプロパティをunset関数で処理しようとしたとき</td>
+            </tr>
+            <tr>
+                <td><m-b>__call</m-b></td>
+                <td>未定義のインスタンスメソッドをコールしたとき</td>
+            </tr>
+            <tr>
+                <td><m-b>__callStatic</m-b></td>
+                <td>未定義の性的メソッドをコールしたとき</td>
+            </tr>
+            <tr>
+                <td><m-b>__toString</m-b></td>
+                <td>print命令などでオブジェクトの文字列表現を要求されたとき</td>
+            </tr>
+            <tr>
+                <td><m-b>__invoke</m-b></td>
+                <td>オブジェクトが関数の形式で呼び出されたとき</td>
+            </tr>
+            <tr>
+                <td><m-b>__clone</m-b></td>
+                <td>clone命令でオブジェクトを複製するとき</td>
+            </tr>
+            <tr>
+                <td><m-b>__debugInfo</m-b></td>
+                <td>var_dump命令でオブジェクトをダンプするとき</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>オブジェクトのclone命令</h3>
+    <pre><code>
+&lt;?php
+class Hoge
+{
+    function __construct(
+        private string $key,
+        private array $list,
+
+    ) {
+    }
+    function __clone(): void
+    {
+        $this->list = [];
+    }
+    function __toString(): string
+    {
+        $listStr = implode(', ', $this->list);
+        return "Hoge(key={$this->key}, list=[{$listStr}])";
+    }
+}
+$hoge1 = new Hoge('hoge1', ['e1', 'e2']);
+$hoge2 = <m-b>clone $hoge1</m-b>;
+print($hoge2);
+    </code></pre>
+    <pre><code>
+<m-b>Hoge(key=hoge1, list=[])</m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

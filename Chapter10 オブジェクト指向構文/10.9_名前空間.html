@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>10.9_名前空間</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>10.9_名前空間</h2>
+
+    <h3>名前空間を定義する命令</h3>
+    <pre><code>
+<m-b>namespace</m-b> 名前空間名;
+    </code></pre>
+
+    <h3>名前空間の使用例</h3>
+    <pre><code>
+&lt;?php
+namespace chap10_practice_10_9;
+class MyClass {
+    static function show() {
+        print __CLASS__;
+    }
+}
+MyClass::show();
+    </code></pre>
+    <pre><code>
+<m-b>chap10_practice_10_9\MyClass</m-b>
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

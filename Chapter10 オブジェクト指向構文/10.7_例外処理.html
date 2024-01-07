@@ -12,6 +12,50 @@
 <body>
     <h2>10.7_例外処理</h2>
 
+    <h3>例外クラスの種類</h3>
+    <ul>
+        <li><m-b>Exception</m-b>: 全ての例外の基底クラス</li>
+        <li><m-b>ErrorException</m-b>: エラー例外</li>
+        <li><m-b>LogicException</m-b>: ロジック誤り時の例外</li>
+        <li><m-b>RuntimeException</m-b>: 実行時の例外</li>
+    </ul>
+
+    <h3>マルチキャッチ</h3>
+    <pre><code>
+&lt;?php
+try {
+    ...
+} catch (<m-b>HogeException | FugaException</m-b> $ex) {
+    // HogeException、FugaExceptionをハンドリング
+    ...
+}
+    </code></pre>
+
+    <h3>例外を送出</h3>
+    <pre><code>
+&lt;?php
+// RuntimeExceptionを送出
+<m-b>throw new RuntimeException()</m-b>;
+    </code></pre>
+
+    <h3>assert命令</h3>
+    <pre><code>
+&lt;?php
+function hoge(mixed $param) {
+    <m-b>assert</m-b>($param != null);
+    return $param . $param;
+}
+print(hoge('hgoe'));
+print(hoge(null));
+    </code></pre>
+
+    <h3>カスタム例外を定義する場合の作法</h3>
+    <ol>
+        <li>標準の<m-b>Exception</m-b>クラス、またはそのサブクラスを継承する</li>
+        <li>クラス名の接尾辞はException</li>
+        <li>アプリが複数の例外を持つ場合は、単一のカスタム例外を意味する<m-b>インターフェイス</m-b>を定義し、これを実装する</li>
+    </ol>
+
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
 </body>
