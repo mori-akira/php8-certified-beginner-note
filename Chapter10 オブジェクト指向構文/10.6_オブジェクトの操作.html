@@ -36,6 +36,102 @@ var_dump($cls1 === $cls3);
 <m-b>bool(true)</m-b><m-b>bool(true)</m-b><m-b>bool(true)</m-b><m-b>bool(false)</m-b>
     </code></pre>
 
+    <h3>オブジェクトの反復処理</h3>
+    <pre><code>
+&lt;?php
+class Hoge
+{
+    public string $public = 'public';
+    protected string $protected = 'protected';
+    private string $private = 'private';
+    function show() {
+        foreach <m-b>($this as $key => $val)</m-b> {
+            print "{$key}: {$val}&lt;br>";
+        }
+    }
+}
+$hoge = new Hoge();
+$hoge->show();
+foreach <m-b>($hoge as $key => $val)</m-b> {
+    print "{$key}: {$val}&lt;br>";
+}
+    </code></pre>
+    <pre><code>
+<m-b>public: public</m-b>
+<m-b>protected: protected</m-b>
+<m-b>private: private</m-b>
+<m-b>public: public</m-b>
+    </code></pre>
+
+    <h3>オブジェクトを配列にキャスト</h3>
+    <pre><code>
+&lt;?php
+class Hoge
+{
+    public string $public = 'public';
+    protected string $protected = 'protected';
+    private string $private = 'private';
+}
+print_r((array) $hoge);
+    </code></pre>
+    <pre><code>
+<m-b>Array ( [public] => public [*protected] => protected [Hogeprivate] => private )</m-b>
+    </code></pre>
+
+    <h3>オブジェクトの反復処理をカスタマイズ</h3>
+    <pre><code>
+&lt;?php
+class Fuga implements <m-b>IteratorAggregate</m-b>
+{
+    private string $private;
+    private $field = ['hoge', 'fuga', 'piyo'];
+    function <m-b>getIterator</m-b>(): Traversable
+    {
+        return <m-b>new ArrayIterator($this->field)</m-b>;
+    }
+}
+foreach (new Fuga() as $key => $val) {
+    print "{$key}: {$val}&lt;br>";
+}
+    </code></pre>
+    <pre><code>
+<m-b>0: hoge</m-b>
+<m-b>1: fuga</m-b>
+<m-b>2: piyo</m-b>
+    </code></pre>
+
+    <h3>Iteratorインターフェイスのメソッド</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>メソッド</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>current()</m-b></td>
+                <td>現在要素を取得</td>
+            </tr>
+            <tr>
+                <td><m-b>key()</m-b></td>
+                <td>現在要素のキーを取得</td>
+            </tr>
+            <tr>
+                <td><m-b>next()/m-b></td>
+                <td>次の要素に移動</td>
+            </tr>
+            <tr>
+                <td><m-b>rewind()</m-b></td>
+                <td>最初の要素に移動</td>
+            </tr>
+            <tr>
+                <td><m-b>valid()</m-b></td>
+                <td>現在の要素位置が有効か</td>
+            </tr>
+        </tbody>
+    </table>
+
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
 </body>
