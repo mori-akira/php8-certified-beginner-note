@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>11.3_ドキュメンテーションコメント</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>11.3_ドキュメンテーションコメント</h2>
+
+    <h3>ドキュメンテーションコメントのフォーマット</h3>
+    <pre><code>
+&lt;?php
+/**
+ * 人間に関する情報を扱うクラス
+ * 
+ * @author Moriaki Kogure
+ * @version 0.0.1
+ * @license GPL
+ */
+class Person {
+    /** 名前 */
+    private string $name;
+    /** 名前を取得するメソッド */
+    public function getName(): string {
+        return $this->name;
+    }
+}
+    </code></pre>
+
+    <h3>ドキュメントコメントに使用できる主なタグ</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>分類</th>
+                <th>タグ</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="4">基本</td>
+                <td><m-b>@author</m-b></td>
+                <td>著作者</td>
+            </tr>
+            <tr>
+                <td><m-b>@copyright</m-b></td>
+                <td>著作情報</td>
+            </tr>
+            <tr>
+                <td><m-b>@license</m-b></td>
+                <td>ライセンス</td>
+            </tr>
+            <tr>
+                <td><m-b>@version</m-b></td>
+                <td>バージョン</td>
+            </tr>
+            <tr>
+                <td rowspan="3">メソッド</td>
+                <td><m-b>@param</m-b></td>
+                <td>パラメータ</td>
+            </tr>
+            <tr>
+                <td><m-b>@return</m-b></td>
+                <td>戻り値</td>
+            </tr>
+            <tr>
+                <td><m-b>@throws</m-b></td>
+                <td>例外</td>
+            </tr>
+            <tr>
+                <td rowspan="2">マジックメソッド</td>
+                <td><m-b>@method</m-b></td>
+                <td>__call/__callStatic呼び出されるメソッド</td>
+            </tr>
+            <tr>
+                <td><m-b>@property</m-b></td>
+                <td>__get/__set軽油で呼び出されるプロパティ</td>
+            </tr>
+            <tr>
+                <td rowspan="2">その他</td>
+                <td><m-b>@deprecated</m-b></td>
+                <td>非推奨</td>
+            </tr>
+            <tr>
+                <td><m-b>@see</m-b></td>
+                <td>参照</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

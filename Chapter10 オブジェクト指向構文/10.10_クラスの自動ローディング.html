@@ -12,6 +12,35 @@
 <body>
     <h2>10.10_クラスの自動ローディング</h2>
 
+    <h3>spl_autoload_register関数</h3>
+    <pre><code>
+&lt;?php
+<m-b>spl_autoload_register</m-b>(function(string $name) : void {
+    <m-b>require_once "{$name}.php"</m-b>;
+});
+// インポートしていないPersonクラスのインスタンスを生成
+print new Person('木村', 25);
+    </code></pre>
+
+    <h3>インクルードの自動化</h3>
+    <ol>
+        <li>php.iniの<m-b>auto_prepend_file</m-b>パラメータに呼び出すphpファイルを記述する</li>
+        <li>各ディレクトリに<m-b>.htaccess</m-b>ファイルを配置する</li>
+        <ul>
+            <li><m-b>IFModule</m-b>要素に<m-b>mod_php.c</m-b>属性を指定して、読み込むphpファイルを記述する</li>
+            <li>上記要素には、<m-b>php_value</m-b>、<m-b>php_flag</m-b>パラメータを記述する</li>
+            <li><m-b>httpd.conf</m-b>で上書きを可能にする設定を行うため、<m-b>AllowOverride</m-b>ディレクティブに<m-b>All</m-b>を設定する</li>
+        </ul>
+    </ol>
+
+    <h3>Composerによる自動ローディング</h3>
+    <ol>
+        <li>
+            <m-b>composer.json</m-b>ファイルの<m-b>autoload.psr-4</m-b>に、「<m-b>名前空間</m-b>: <m-b>保存ディレクトリのパス</m-b>」の形式で指定する。
+        </li>
+        <li><m-b>composer dump-autoload</m-b>コマンドを実行する</li>
+    </ol>
+
     <script src="../asset/jquery-3.7.1.slim.min.js"></script>
     <script src="../asset/masked-block.js"></script>
 </body>

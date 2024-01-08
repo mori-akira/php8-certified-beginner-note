@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>11.1_属性</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>11.1_属性</h2>
+    <p>
+        Javaでいうところの<m-b>アノテーション</m-b>に近い。
+    </p>
+
+    <h3>属性の使用</h3>
+    <pre><code>
+&lt;?php
+#[MyClass]
+class MyClass
+{
+    #[hoge]
+    private string $hoge = 'hoge';
+    #[fuga]
+    function fuga()
+    {
+        return $this->hoge;
+    }
+}
+#[piyo]
+function piyo() {
+    return 'piyo';
+}
+print (new MyClass())->fuga();
+print piyo();
+    </code></pre>
+
+    <h3>カスタム属性の定義</h3>
+    <pre><code>
+&lt;?php
+<m-b>#[Attribute(Attribute::TARGET_CLASS)]</m-b>
+class ClassInfo
+{
+    public function __construct(
+        public string $version = '0.0.1',
+        public string $description = '',
+    ) {
+    }
+}
+    </code></pre>
+
+    <h3>リフレクションによる属性へのアクセス</h3>
+    <pre><code>
+&lt;?php
+#[Attribute(Attribute::TARGET_CLASS)]
+class ClassInfo
+{
+    public function __construct(
+        public string $version = '0.0.1',
+        public string $description = '',
+    ) {
+    }
+}
+
+#[ClassInfo('0.0.2', '人間の情報を扱うクラス')]
+class Person {
+    public string $name;
+}
+
+$ref = <m-b>new ReflectionClass(Person::class)</m-b>;
+$info = $ref-><m-b>getAttributes(ClassInfo::class)[0]->newInstance()</m-b>;
+print "Version={$info->version}, description={$info->description}";
+    </code></pre>
+    <pre><code>
+Version=0.0.2, description=人間の情報を扱うクラス
+    </code></pre>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>

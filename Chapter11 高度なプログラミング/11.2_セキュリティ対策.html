@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>11.2_セキュリティ対策</title>
+    <meta name="author" content="Moriaki Kogure">
+    <link rel="stylesheet" href="../asset/style.css">
+    <link rel="stylesheet" href="../asset/masked-block.css">
+</head>
+
+<body>
+    <h2>11.2_セキュリティ対策</h2>
+
+    <h3>XSS対策</h3>
+    <ol>
+        <li><m-b>htmlsepcialchars</m-b>関数を使用する</li>
+        <li><m-b>HTML Purifier</m-b>ライブラリを使用する</li>
+    </ol>
+
+    <h3>SQLインジェクション対策</h3>
+    <ol>
+        <li>PDOの<m-b>プレースホルダ</m-b>を利用する</li>
+    </ol>
+
+    <h3>php.iniのパラメータ設定</h3>
+
+    <h4>ebable_dlパラメータ</h4>
+    <p>
+        このパラメータをOnにすると、<m-b>拡張モジュール</m-b>を動的に読み込むことを許可するが、脆弱性になりうるため、基本的にはデフォルトのOffのままとする。
+    </p>
+
+    <h4>エラー関連のパラメータ</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>パラメータ</th>
+                <th>デフォルト値</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><m-b>display_errors</m-b></td>
+                <td>Off</td>
+                <td>エラーをブラウザに表示するか</td>
+            </tr>
+            <tr>
+                <td><m-b>display_startup_errors</m-b></td>
+                <td>Off</td>
+                <td>起動時エラーをブラウザに表示するか</td>
+            </tr>
+            <tr>
+                <td><m-b>log_errors</m-b></td>
+                <td>On</td>
+                <td>エラー情報をログに出力するか</td>
+            </tr>
+            <tr>
+                <td><m-b>error_log</m-b></td>
+                <td>""(Apachのエラーログ)</td>
+                <td>ログ出力先</td>
+            </tr>
+            <tr>
+                <td><m-b>error_reporting</m-b></td>
+                <td>E_ALL & ~E_NOTICE & ~E_DEPRECATED</td>
+                <td>エラーの出力レベル</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>expose_phpパラメータ</h4>
+    <p>
+        デフォルトでOnになっていて、ヘッダに次のようなPHPのバージョン情報が付与される。
+    </p>
+    <pre><code>
+<m-b>X-Powered-By</m-b>: PHP/8.0.3
+    </code></pre>
+    <p>
+        利用しているPHPのバージョンからセキュリティホールを狙われることを防ぐ意味で、Offにすることが推奨される。
+    </p>
+    
+    <h4>default_charsetパラメータ</h4>
+    <p>
+        アプリで利用を想定する文字コードを宣言する。
+        想定外の文字コードを混入させることでXSS攻撃等が可能になるため、使用する文字コードを指定することが強く推奨される。
+    </p>
+
+    <script src="../asset/jquery-3.7.1.slim.min.js"></script>
+    <script src="../asset/masked-block.js"></script>
+</body>
+
+</html>
